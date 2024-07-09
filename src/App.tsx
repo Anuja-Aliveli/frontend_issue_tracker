@@ -9,6 +9,7 @@ import {
   Switch,
   Typography,
 } from '@mui/material';
+import theme from './theme';
 
 export default function App() {
   const [toggleDarkMode, setToggleDarkMode] = useState<boolean>(true);
@@ -17,16 +18,20 @@ export default function App() {
     setToggleDarkMode(!toggleDarkMode);
   };
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: toggleDarkMode ? 'dark' : 'light',
-    },
-  });
+  const customTheme = createTheme(theme(toggleDarkMode ? 'dark' : 'light'));
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={customTheme}>
       <CssBaseline />
+      <h1>Hello</h1>
+      <h2>Hello</h2>
+      <h3>Hello</h3>
+      <h4>Hello</h4>
+      <h5>Hello</h5>
+      <h6>Hello</h6>
       <p>Hello</p>
+      <label>Hello</label>
+      <span>Hello</span>
       <div
         style={{
           display: 'flex',
@@ -34,7 +39,7 @@ export default function App() {
           alignItems: 'center',
           minHeight: '100vh', // Ensure the container takes up the full viewport height
           justifyContent: 'center', // Center the content vertically
-          backgroundColor: darkTheme.palette.background.default, // Set background color
+          backgroundColor: customTheme.palette.background.default, // Set background color
         }}>
         <Switch checked={toggleDarkMode} onChange={toggleDarkTheme} />
         <Card sx={{ width: '30%', borderRadius: 3, padding: 1 }}>
