@@ -1,6 +1,6 @@
 import { useState, ReactNode, FC } from 'react';
 import AuthContext from './authContext';
-import { postRegister } from '../../services/authService';
+import { postLogin, postRegister } from '../../services/authService';
 import { RegisterPostData } from '../../Interfaces/authInterface';
 
 interface AuthContextProviderProps {
@@ -15,6 +15,7 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [registerError, setRegisterError] = useState<string>('');
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<string>('');
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -40,8 +41,19 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
     }
   };
 
-  const onLogin = () => {
-    console.log('Loged In Successfully');
+  const onLogin = async () => {
+    setLoading(true);
+    try {
+      const requestBody = {
+        user_name: userName,
+        password: password,
+      };
+      const data = await postLogin(requestBody);
+    } catch (err: any) {
+      setLoginError(err.response.data.error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -63,6 +75,8 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
         registerError,
         setRegisterError,
         isLoading,
+        loginError,
+        setLoginError,
       }}>
       {children}
     </AuthContext.Provider>

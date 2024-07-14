@@ -1,5 +1,4 @@
 import { createContext } from 'react';
-import { RegisterPostData } from '../../Interfaces/authInterface';
 
 interface AuthContextType {
   userName: string;
@@ -18,6 +17,8 @@ interface AuthContextType {
   registerError: string;
   setRegisterError: (value: string) => void;
   isLoading: boolean;
+  loginError: string;
+  setLoginError: (value: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
