@@ -1,4 +1,4 @@
-import React, { useState, ReactNode, FC } from 'react';
+import { useState, ReactNode, FC } from 'react';
 import AuthContext from './authContext';
 
 interface AuthContextProviderProps {
@@ -6,16 +6,39 @@ interface AuthContextProviderProps {
 }
 
 const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
-  const [darkModeOn, setDarkModeOn] = useState(true);
-  const [englishLanguage, setEnglishLanguage] = useState(true);
+  const [userName, setUserName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [reEnterPassword, setReEnterPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event: any) => {
+    event.preventDefault();
+  };
+
+  const onRegister = () => {
+    console.log('Registered Successfully');
+  };
 
   return (
     <AuthContext.Provider
       value={{
-        darkModeOn,
-        setDarkModeOn,
-        englishLanguage,
-        setEnglishLanguage,
+        userName,
+        setUserName,
+        email,
+        setEmail,
+        password,
+        setPassword,
+        reEnterPassword,
+        setReEnterPassword,
+        onRegister,
+        showPassword,
+        handleMouseDownPassword,
+        handleClickShowPassword,
       }}>
       {children}
     </AuthContext.Provider>
