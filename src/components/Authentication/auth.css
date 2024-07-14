@@ -15,3 +15,8 @@
     background-color: #0959AA !important;
     color: #ffffff !important;
 }
+
+.authButton:disabled {
+    opacity: 0.3 !important;
+    cursor: no-drop;
+}

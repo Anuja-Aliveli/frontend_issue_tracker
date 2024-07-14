@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { loginErrorsInterface } from './authInterface';
+import { loginErrorsInterface } from '../../Interfaces/authInterface';
 import { FIELD_REQUIRED } from '../../utils/constants';
 import './auth.css';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
