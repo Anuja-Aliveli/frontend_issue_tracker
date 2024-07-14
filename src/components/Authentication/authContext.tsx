@@ -13,6 +13,7 @@ interface AuthContextType {
   showPassword: boolean;
   handleClickShowPassword: () => void;
   handleMouseDownPassword: (event: any) => void;
+  onLogin: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);

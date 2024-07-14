@@ -24,6 +24,10 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
     console.log('Registered Successfully');
   };
 
+  const onLogin = () => {
+    console.log('Loged In Successfully');
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -39,6 +43,7 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
         showPassword,
         handleMouseDownPassword,
         handleClickShowPassword,
+        onLogin,
       }}>
       {children}
     </AuthContext.Provider>
