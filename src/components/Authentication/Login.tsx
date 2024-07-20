@@ -3,6 +3,7 @@ import AuthContext from './authContext';
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Grid,
   IconButton,
@@ -11,7 +12,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { loginErrorsInterface } from './authInterface';
+import { loginErrorsInterface } from '../../Interfaces/authInterface';
 import { FIELD_REQUIRED } from '../../utils/constants';
 import './auth.css';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -37,6 +38,9 @@ const Login = () => {
     showPassword,
     handleClickShowPassword,
     handleMouseDownPassword,
+    loginError,
+    setLoginError,
+    isLoading,
   } = loginContextDetails;
 
   const handleFieldChange = (field: string, value: string) => {
@@ -54,6 +58,8 @@ const Login = () => {
     if (value.trim() !== '') {
       setLoginErrors((prevErrors) => ({ ...prevErrors, [field]: false }));
     }
+
+    setLoginError('');
   };
 
   const handleSignInSubmit = (event: any) => {
@@ -96,6 +102,9 @@ const Login = () => {
             noValidate
             sx={{ mt: 3 }}
             onSubmit={handleSignInSubmit}>
+            <Typography color="error" variant="body2" sx={{ marginBottom: 2 }}>
+              {loginError && `* ${loginError}`}
+            </Typography>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12}>
                 <TextField
@@ -152,8 +161,13 @@ const Login = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}>
-              Sign In
+              sx={{ mt: 3, mb: 2 }}
+              disabled={isLoading}>
+              {isLoading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                'Sign in'
+              )}
             </Button>
             <Grid container>
               <Grid item>

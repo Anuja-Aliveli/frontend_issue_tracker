@@ -3,6 +3,7 @@ import AuthContext from './authContext';
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Grid,
   IconButton,
@@ -11,7 +12,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { registerErrorsInterface } from './authInterface';
+import { registerErrorsInterface } from '../../Interfaces/authInterface';
 import { FIELD_REQUIRED, PASSWORD_NOT_MATCHED } from '../../utils/constants';
 import './auth.css';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -47,9 +48,13 @@ const Register = () => {
     showPassword,
     handleClickShowPassword,
     handleMouseDownPassword,
+    isLoading,
+    registerError,
+    setRegisterError,
   } = registerContexDetails;
 
   const handleFieldChange = (field: string, value: string) => {
+    setRegisterError('');
     switch (field) {
       case 'userName':
         setUserName(value);
@@ -120,8 +125,11 @@ const Register = () => {
         <Box
           component="form"
           noValidate
-          sx={{ mt: 3 }}
+          sx={{ mt: 2 }}
           onSubmit={handleSignUpSubmit}>
+          <Typography color="error" variant="body2" sx={{ marginBottom: 2 }}>
+            {registerError && `* ${registerError}`}
+          </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
@@ -213,8 +221,13 @@ const Register = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}>
-            Sign Up
+            sx={{ mt: 3, mb: 2 }}
+            disabled={isLoading}>
+            {isLoading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              'Sign Up'
+            )}
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>

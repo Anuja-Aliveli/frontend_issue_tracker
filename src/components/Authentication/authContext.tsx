@@ -9,11 +9,16 @@ interface AuthContextType {
   setPassword: (value: string) => void;
   reEnterPassword: string;
   setReEnterPassword: (value: string) => void;
-  onRegister: () => void;
   showPassword: boolean;
   handleClickShowPassword: () => void;
   handleMouseDownPassword: (event: any) => void;
   onLogin: () => void;
+  onRegister: () => void;
+  registerError: string;
+  setRegisterError: (value: string) => void;
+  isLoading: boolean;
+  loginError: string;
+  setLoginError: (value: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
