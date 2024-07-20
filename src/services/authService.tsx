@@ -1,4 +1,8 @@
-import { LoginPostData, RegisterPostData } from '../Interfaces/authInterface';
+import {
+  LoginPostData,
+  PostResetData,
+  RegisterPostData,
+} from '../Interfaces/authInterface';
 import api from './axios';
 
 export const postRegister = async (data: RegisterPostData) => {
@@ -24,6 +28,15 @@ export const getEmail = async (email: string) => {
     const response = await api.get(`/check_email/`, {
       params: { email },
     });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updatePassword = async (requestBody: PostResetData) => {
+  try {
+    const response = await api.post(`/reset_user_password/`, requestBody);
     return response.data;
   } catch (error) {
     throw error;

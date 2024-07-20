@@ -6,6 +6,8 @@ import {
   CircularProgress,
   Container,
   Grid,
+  IconButton,
+  InputAdornment,
   TextField,
   Typography,
 } from '@mui/material';
@@ -14,13 +16,22 @@ import {
   OPT_NOT_ENTERED,
   OTP_ALL_FIELDS,
   OTP_NOT_MATCHED,
+  PASSWORD_NOT_MATCHED,
 } from '../../utils/constants';
 import './auth.css';
-import { ForgotPasswordSteps } from '../../Interfaces/authInterface';
+import {
+  ForgotPasswordSteps,
+  PasswordErrors,
+} from '../../Interfaces/authInterface';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const ForgotPassword = () => {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [otp, setOtp] = useState(Array(6).fill(''));
+  const [passwordErrors, setPasswordErrors] = useState<PasswordErrors>({
+    password: false,
+    reEnterPassword: false,
+  });
 
   const forgotPasswordDetails = useContext(AuthContext);
 
@@ -38,6 +49,15 @@ const ForgotPassword = () => {
     checkEmailError,
     setCheckEmailError,
     getEmailData,
+    password,
+    setPassword,
+    reEnterPassword,
+    setReEnterPassword,
+    showPassword,
+    handleClickShowPassword,
+    handleMouseDownPassword,
+    passwordUpdateResult,
+    onResetPassword,
   } = forgotPasswordDetails;
 
   const handleFieldChange = (value: string) => {
@@ -154,6 +174,112 @@ const ForgotPassword = () => {
     </>
   );
 
+  const handlePasswordChange = (fieldName: string, value: string) => {
+    switch (fieldName) {
+      case 'reEnterPassword':
+        setReEnterPassword(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
+      default:
+        break;
+    }
+    if (value.trim() !== '') {
+      setPasswordErrors((prevErrors) => ({
+        ...prevErrors,
+        [fieldName]: false,
+      }));
+    }
+    setCheckEmailError('');
+  };
+
+  const handleReset = (event: any) => {
+    event.preventDefault();
+
+    const newErrors = {
+      password: password.trim() === '',
+      reEnterPassword: reEnterPassword.trim() === '',
+    };
+
+    setPasswordErrors(newErrors);
+
+    const hasErrors = Object.values(newErrors).some((error) => error);
+
+    if (password !== '' && reEnterPassword !== '') {
+      const isPasswordMatched = password === reEnterPassword;
+      setCheckEmailError(isPasswordMatched ? '' : PASSWORD_NOT_MATCHED);
+    }
+
+    if (!hasErrors && checkEmailError === '') {
+      onResetPassword();
+    }
+  };
+
+  const renderResetStep = () => {
+    return (
+      <>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={12}>
+            <TextField
+              className="fieldName"
+              fullWidth
+              name="password"
+              label="Password"
+              type={showPassword ? 'text' : 'password'}
+              id="password"
+              autoComplete="new-password"
+              error={passwordErrors.password}
+              helperText={passwordErrors.password && FIELD_REQUIRED}
+              value={password}
+              onChange={(e) => handlePasswordChange('password', e.target.value)}
+              inputProps={{ className: 'fieldName' }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end">
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={12}>
+            <TextField
+              className="fieldName"
+              fullWidth
+              name="reEnterPassword"
+              label="Re-enter Password"
+              type="password"
+              id="reEnterPassword"
+              autoComplete="new-password"
+              error={passwordErrors.reEnterPassword}
+              helperText={passwordErrors.reEnterPassword && FIELD_REQUIRED}
+              value={reEnterPassword}
+              onChange={(e) =>
+                handlePasswordChange('reEnterPassword', e.target.value)
+              }
+              inputProps={{ className: 'fieldName' }}
+            />
+          </Grid>
+        </Grid>
+        <Button
+          className={`authButton ${isLoading ? 'loadingState' : ''}`}
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+          onClick={handleReset}>
+          {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Reset'}
+        </Button>
+      </>
+    );
+  };
+
   return (
     <Container
       component="main"
@@ -179,22 +305,16 @@ const ForgotPassword = () => {
               * {checkEmailError}
             </Typography>
           )}
-
-          {showStep === ForgotPasswordSteps.Otp && (
-            <Typography
-              variant="body2"
-              sx={{ marginBottom: 2, textAlign: 'center' }}>
-              We have sent a 6 digit OTP to your mail
+          {passwordUpdateResult && (
+            <Typography color="error" variant="body2" sx={{ marginBottom: 2 }}>
+              * {passwordUpdateResult}
             </Typography>
           )}
-
-          {showStep === ForgotPasswordSteps.Email ? (
-            renderEmailVerificationStep()
-          ) : showStep === ForgotPasswordSteps.Otp ? (
-            renderOTPVerificationStep()
-          ) : (
-            <p>Hello</p>
-          )}
+          {showStep === ForgotPasswordSteps.Email
+            ? renderEmailVerificationStep()
+            : showStep === ForgotPasswordSteps.Otp
+            ? renderOTPVerificationStep()
+            : renderResetStep()}
         </Box>
       </Box>
     </Container>

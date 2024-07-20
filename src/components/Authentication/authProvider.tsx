@@ -1,10 +1,15 @@
 import { useState, ReactNode, FC } from 'react';
 import AuthContext from './authContext';
-import { getEmail, postLogin, postRegister } from '../../services/authService';
+import {
+  getEmail,
+  postLogin,
+  postRegister,
+  updatePassword,
+} from '../../services/authService';
 import {
   GetEmailInterface,
-  RegisterPostData,
   ForgotPasswordSteps,
+  updatePasswordInterface,
 } from '../../Interfaces/authInterface';
 import { useNavigate } from 'react-router-dom';
 
@@ -23,6 +28,7 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
   const [loginError, setLoginError] = useState<string>('');
   const [getEmailData, setEmailData] = useState<GetEmailInterface | null>(null);
   const [checkEmailError, setCheckEmailError] = useState<string>('');
+  const [passwordUpdateResult, setPasswordUpdateResult] = useState<string>('');
   const [showStep, setShowStep] = useState<ForgotPasswordSteps>(
     ForgotPasswordSteps.Email,
   );
@@ -76,12 +82,29 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
   const onForgotPassword = async (email: string) => {
     setLoading(true);
     try {
-      email = email;
       const data = await getEmail(email);
       setEmailData(data);
       setShowStep(ForgotPasswordSteps.Otp);
     } catch (err: any) {
       setCheckEmailError(err.response.data.error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onResetPassword = async () => {
+    setLoading(true);
+    try {
+      const requestBody = {
+        password: password,
+        email: email,
+      };
+      const data = await updatePassword(requestBody);
+      setEmail('');
+      setPassword('');
+      navigate('/login');
+    } catch (err: any) {
+      setPasswordUpdateResult(err.response.data.error);
     } finally {
       setLoading(false);
     }
@@ -114,6 +137,8 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
         setShowStep,
         checkEmailError,
         setCheckEmailError,
+        passwordUpdateResult,
+        onResetPassword,
       }}>
       {children}
     </AuthContext.Provider>

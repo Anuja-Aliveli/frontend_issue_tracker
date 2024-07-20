@@ -2,6 +2,7 @@ import { createContext } from 'react';
 import {
   ForgotPasswordSteps,
   GetEmailInterface,
+  updatePasswordInterface,
 } from '../../Interfaces/authInterface';
 
 interface AuthContextType {
@@ -29,6 +30,8 @@ interface AuthContextType {
   setShowStep: (value: ForgotPasswordSteps) => void;
   checkEmailError: string;
   setCheckEmailError: (value: string) => void;
+  passwordUpdateResult: string;
+  onResetPassword: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);

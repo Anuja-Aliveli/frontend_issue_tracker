@@ -16,7 +16,8 @@
     color: #ffffff !important;
 }
 
-.authButton:disabled {
+.authButton:disabled,
+.loadingState {
     opacity: 0.3 !important;
     cursor: no-drop;
 }

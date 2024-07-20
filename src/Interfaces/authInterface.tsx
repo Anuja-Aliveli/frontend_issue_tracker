@@ -31,3 +31,18 @@ export enum ForgotPasswordSteps {
   Otp = 'otp',
   Reset = 'reset',
 }
+
+export interface PasswordErrors {
+  password: boolean;
+  reEnterPassword: boolean;
+}
+
+export interface updatePasswordInterface {
+  user_email_found: boolean;
+  message: string;
+}
+
+export interface PostResetData {
+  password: string;
+  email: string;
+}
