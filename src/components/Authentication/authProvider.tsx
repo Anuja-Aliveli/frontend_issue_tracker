@@ -1,7 +1,12 @@
 import { useState, ReactNode, FC } from 'react';
 import AuthContext from './authContext';
-import { postLogin, postRegister } from '../../services/authService';
-import { RegisterPostData } from '../../Interfaces/authInterface';
+import { getEmail, postLogin, postRegister } from '../../services/authService';
+import {
+  GetEmailInterface,
+  RegisterPostData,
+  ForgotPasswordSteps,
+} from '../../Interfaces/authInterface';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthContextProviderProps {
   children: ReactNode;
@@ -16,6 +21,12 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
   const [registerError, setRegisterError] = useState<string>('');
   const [isLoading, setLoading] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<string>('');
+  const [getEmailData, setEmailData] = useState<GetEmailInterface | null>(null);
+  const [checkEmailError, setCheckEmailError] = useState<string>('');
+  const [showStep, setShowStep] = useState<ForgotPasswordSteps>(
+    ForgotPasswordSteps.Email,
+  );
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -34,6 +45,7 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
         password: password,
       };
       const data = await postRegister(requestBody);
+      navigate('/login');
     } catch (err: any) {
       setRegisterError(err.response.data.error);
     } finally {
@@ -49,8 +61,27 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
         password: password,
       };
       const data = await postLogin(requestBody);
+      const { token, user_name, email } = data;
+      localStorage.setItem('token', JSON.stringify(token));
+      localStorage.setItem('email', JSON.stringify(email));
+      localStorage.setItem('userName', JSON.stringify(user_name));
+      navigate('/other');
     } catch (err: any) {
       setLoginError(err.response.data.error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onForgotPassword = async (email: string) => {
+    setLoading(true);
+    try {
+      email = email;
+      const data = await getEmail(email);
+      setEmailData(data);
+      setShowStep(ForgotPasswordSteps.Otp);
+    } catch (err: any) {
+      setCheckEmailError(err.response.data.error);
     } finally {
       setLoading(false);
     }
@@ -77,6 +108,12 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
         isLoading,
         loginError,
         setLoginError,
+        getEmailData,
+        onForgotPassword,
+        showStep,
+        setShowStep,
+        checkEmailError,
+        setCheckEmailError,
       }}>
       {children}
     </AuthContext.Provider>

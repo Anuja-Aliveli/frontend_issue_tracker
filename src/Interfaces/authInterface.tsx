@@ -20,3 +20,14 @@ export interface RegisterPostData {
   email: string;
   password: string;
 }
+
+export interface GetEmailInterface {
+  user_email_found: boolean;
+  verification_code: string;
+}
+
+export enum ForgotPasswordSteps {
+  Email = 'email',
+  Otp = 'otp',
+  Reset = 'reset',
+}

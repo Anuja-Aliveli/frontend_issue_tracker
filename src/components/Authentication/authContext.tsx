@@ -1,4 +1,8 @@
 import { createContext } from 'react';
+import {
+  ForgotPasswordSteps,
+  GetEmailInterface,
+} from '../../Interfaces/authInterface';
 
 interface AuthContextType {
   userName: string;
@@ -19,6 +23,12 @@ interface AuthContextType {
   isLoading: boolean;
   loginError: string;
   setLoginError: (value: string) => void;
+  getEmailData: GetEmailInterface | null;
+  onForgotPassword: (value: string) => void;
+  showStep: ForgotPasswordSteps;
+  setShowStep: (value: ForgotPasswordSteps) => void;
+  checkEmailError: string;
+  setCheckEmailError: (value: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);

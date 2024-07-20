@@ -18,3 +18,14 @@ export const postLogin = async (data: LoginPostData) => {
     throw error;
   }
 };
+
+export const getEmail = async (email: string) => {
+  try {
+    const response = await api.get(`/check_email/`, {
+      params: { email },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

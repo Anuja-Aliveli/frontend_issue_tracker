@@ -1,3 +1,4 @@
+import ForgotPassword from '../components/Authentication/ForgotPassword';
 import Login from '../components/Authentication/Login';
 import Register from '../components/Authentication/Register';
 import AuthContextLayout from '../Layouts/AuthLayout';
@@ -12,6 +13,11 @@ const routes = [
   {
     path: '/login',
     element: <Login />,
+    layout: <AuthContextLayout />,
+  },
+  {
+    path: '/forgot-password',
+    element: <ForgotPassword />,
     layout: <AuthContextLayout />,
   },
   {
