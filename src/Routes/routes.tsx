@@ -1,8 +1,10 @@
 import ForgotPassword from '../components/Authentication/ForgotPassword';
 import Login from '../components/Authentication/Login';
 import Register from '../components/Authentication/Register';
+import Main from '../components/Main/Main';
 import AuthContextLayout from '../Layouts/AuthLayout';
-import ThemeContextLayout from '../Layouts/ThemeLayout';
+import ThemeProviderWrapper from '../Layouts/ThemeLayout';
+import AuthGuard from './Authguard';
 
 const routes = [
   {
@@ -21,9 +23,13 @@ const routes = [
     layout: <AuthContextLayout />,
   },
   {
-    path: '/other',
-    element: <p>Hello</p>,
-    layout: <ThemeContextLayout />,
+    path: '/main',
+    element: (
+      <AuthGuard>
+        <Main />
+      </AuthGuard>
+    ),
+    layout: <ThemeProviderWrapper />,
   },
 ];
 

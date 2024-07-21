@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import React from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../theme';
 import { Outlet } from 'react-router-dom';
+import {
+  ThemeContextProvider,
+  useThemeContext,
+} from '../Contexts/useThemeContext';
 
 const ThemeContextLayout = () => {
-  const [toggleDarkMode, setToggleDarkMode] = useState<boolean>(true);
-
-  const toggleDarkTheme = () => {
-    setToggleDarkMode(!toggleDarkMode);
-  };
+  const { toggleDarkMode } = useThemeContext();
 
   const customTheme = createTheme(theme(toggleDarkMode ? 'dark' : 'light'));
   return (
@@ -20,4 +20,10 @@ const ThemeContextLayout = () => {
   );
 };
 
-export default ThemeContextLayout;
+const ThemeProviderWrapper: React.FC = () => (
+  <ThemeContextProvider>
+    <ThemeContextLayout />
+  </ThemeContextProvider>
+);
+
+export default ThemeProviderWrapper;
