@@ -143,7 +143,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
     text: {
       primary: gray[800],
       secondary: gray[600],
-      ...(mode === 'dark' && { primary: '#fff', secondary: gray[400] }),
+      ...(mode === 'dark' && { primary: '#c7d0dd', secondary: gray[400] }),
     },
     action: {
       selected: `${alpha(brand[200], 0.2)}`,
@@ -180,6 +180,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
     },
     h6: {
       fontSize: 18,
+      fontWeight: 600,
     },
     subtitle1: {
       fontSize: 18,
