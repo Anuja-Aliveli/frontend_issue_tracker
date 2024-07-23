@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -6,31 +6,35 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import WorkIcon from '@mui/icons-material/Work';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import ReportIcon from '@mui/icons-material/Report';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import MainContext from './MainContext';
+import {
+  LIGHT_THEME,
+  SIDEBAR_ICON_COLOR,
+  SIDEBAR_SELECTED_DARK_BG_COLOR,
+  SIDEBAR_SELECTED_DARK_BORDER,
+  SIDEBAR_SELECTED_DARK_COLOR,
+  SIDEBAR_SELECTED_LIGHT_BG_COLOR,
+  SIDEBAR_SELECTED_LIGHT_BORDER,
+  SIDEBAR_SELECTED_LIGHT_COLOR,
+} from '../../utils/constants';
 
 const Sidebar = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const handleListItemClick = (index: number) => {
-    setSelectedIndex(index);
-  };
-
-  const items = [
-    { text: 'Dashboard', icon: <DashboardIcon /> },
-    { text: 'Create Project', icon: <AddBoxIcon /> },
-    { text: 'Projects', icon: <WorkIcon /> },
-    { text: 'Create Issue', icon: <AddBoxIcon /> },
-    { text: 'Issues', icon: <ReportIcon /> },
-    { text: 'Bookmark', icon: <BookmarkIcon /> },
-  ];
-
   const theme = useTheme();
-  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+
+  const mainContextDetails = useContext(MainContext);
+  if (!mainContextDetails) {
+    return <div>Loading...</div>;
+  }
+
+  const { isIconNavbar, sideBarOptions, setSelectedRoute } = mainContextDetails;
+
+  const handleListItemClick = (index: number, route: string) => {
+    setSelectedIndex(index);
+    setSelectedRoute(route);
+  };
 
   return (
     <Box
@@ -41,36 +45,49 @@ const Sidebar = () => {
       }}>
       <List
         sx={{
-          width: '100% !important',
+          width: { lg: isIconNavbar ? '72px !important' : '205px !important' },
           paddingTop: '0px',
         }}>
-        {items.map((item, index) => (
+        {sideBarOptions.map((item, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton
               selected={selectedIndex === index}
-              onClick={() => handleListItemClick(index)}
+              onClick={() => handleListItemClick(index, item.route)}
               sx={{
                 '&.Mui-selected': {
-                  color: theme.palette.mode === 'light' ? '#0959AA' : '#55a6f6',
+                  color:
+                    theme.palette.mode === LIGHT_THEME
+                      ? SIDEBAR_SELECTED_LIGHT_COLOR
+                      : SIDEBAR_SELECTED_DARK_COLOR,
                   backgroundColor:
-                    theme.palette.mode === 'light' ? '#F0F7FF' : '#0b1b28',
+                    theme.palette.mode === LIGHT_THEME
+                      ? SIDEBAR_SELECTED_LIGHT_BG_COLOR
+                      : SIDEBAR_SELECTED_DARK_BG_COLOR,
                   border:
-                    theme.palette.mode === 'light'
-                      ? '1px solid #d2e8ff'
-                      : '1px solid #023b73',
+                    theme.palette.mode === LIGHT_THEME
+                      ? SIDEBAR_SELECTED_LIGHT_BORDER
+                      : SIDEBAR_SELECTED_DARK_BORDER,
                   '&:hover': {
                     backgroundColor:
-                      theme.palette.mode === 'light' ? '#F0F7FF' : '#0b1b28',
+                      theme.palette.mode === LIGHT_THEME
+                        ? SIDEBAR_SELECTED_LIGHT_BG_COLOR
+                        : SIDEBAR_SELECTED_DARK_BG_COLOR,
                   },
                 },
               }}>
               <ListItemIcon
                 sx={{
-                  color: selectedIndex === index ? '#0959AA' : '#c7d0dd',
+                  color:
+                    selectedIndex === index
+                      ? SIDEBAR_SELECTED_LIGHT_COLOR
+                      : SIDEBAR_ICON_COLOR,
                 }}>
                 {item.icon}
               </ListItemIcon>
-              {isSmUp && (
+              {!isMdUp && (
+                <ListItemText primary={item.text} sx={{ fontWeight: 'bold' }} />
+              )}
+              {!isIconNavbar && isMdUp && (
                 <ListItemText primary={item.text} sx={{ fontWeight: 'bold' }} />
               )}
             </ListItemButton>

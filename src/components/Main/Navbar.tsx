@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -18,23 +18,35 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useThemeContext } from '../../Contexts/useThemeContext';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
+import MainContext from './MainContext';
+import { LIGHT_THEME } from '../../utils/constants';
 
 const Navbar = () => {
   const { toggleTheme, toggleDarkMode } = useThemeContext();
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const navigate = useNavigate();
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
-  const handleLogout = () => {
-    localStorage.removeItem('userName');
-    localStorage.removeItem('email');
-    localStorage.removeItem('token');
-    navigate('/login');
-  };
+  const mainContextDetails = useContext(MainContext);
+
+  if (!mainContextDetails) {
+    return <div>Loading...</div>;
+  }
+
+  const {
+    handleLogout,
+    isIconNavbar,
+    setIsIconNavbar,
+    drawerOpen,
+    setDrawerOpen,
+  } = mainContextDetails;
 
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
+  };
+
+  const toggleDesktopSidebar = () => {
+    setIsIconNavbar(!isIconNavbar);
   };
 
   return (
@@ -60,7 +72,7 @@ const Navbar = () => {
               justifyContent: 'space-between',
               flexShrink: 0,
               bgcolor:
-                theme.palette.mode === 'light'
+                theme.palette.mode === LIGHT_THEME
                   ? 'rgba(255, 255, 255, 0.4)'
                   : 'rgba(0, 0, 0, 0.4)',
               backdropFilter: 'blur(24px)',
@@ -69,7 +81,7 @@ const Navbar = () => {
               border: '1px solid',
               borderColor: 'divider',
               boxShadow:
-                theme.palette.mode === 'light'
+                theme.palette.mode === LIGHT_THEME
                   ? `0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)`
                   : '0 0 1px rgba(2, 31, 59, 0.7), 1px 1.5px 2px -1px rgba(2, 31, 59, 0.65), 4px 4px 12px -2.5px rgba(2, 31, 59, 0.65)',
             }}>
@@ -88,6 +100,18 @@ const Navbar = () => {
                     size="small"
                     aria-label="button to toggle sidebar"
                     onClick={toggleDrawer(true)}
+                    sx={{ minWidth: '32px', height: '32px', p: '4px' }}>
+                    <MenuIcon fontSize="medium" />
+                  </Button>
+                </Box>
+              )}
+              {isMdUp && (
+                <Box sx={{ maxWidth: '32px' }}>
+                  <Button
+                    variant="text"
+                    size="small"
+                    onClick={toggleDesktopSidebar}
+                    aria-label="button to toggle sidebar"
                     sx={{ minWidth: '32px', height: '32px', p: '4px' }}>
                     <MenuIcon fontSize="medium" />
                   </Button>

@@ -2,6 +2,7 @@ import ForgotPassword from '../components/Authentication/ForgotPassword';
 import Login from '../components/Authentication/Login';
 import Register from '../components/Authentication/Register';
 import Main from '../components/Main/Main';
+import MainContextProvider from '../components/Main/MainProvider';
 import AuthContextLayout from '../Layouts/AuthLayout';
 import ThemeProviderWrapper from '../Layouts/ThemeLayout';
 import AuthGuard from './Authguard';
@@ -23,10 +24,12 @@ const routes = [
     layout: <AuthContextLayout />,
   },
   {
-    path: '/main',
+    path: '/',
     element: (
       <AuthGuard>
-        <Main />
+        <MainContextProvider>
+          <Main />
+        </MainContextProvider>
       </AuthGuard>
     ),
     layout: <ThemeProviderWrapper />,

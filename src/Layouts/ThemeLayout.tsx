@@ -7,11 +7,14 @@ import {
   ThemeContextProvider,
   useThemeContext,
 } from '../Contexts/useThemeContext';
+import { DARK_THEME, LIGHT_THEME } from '../utils/constants';
 
 const ThemeContextLayout = () => {
   const { toggleDarkMode } = useThemeContext();
 
-  const customTheme = createTheme(theme(toggleDarkMode ? 'dark' : 'light'));
+  const customTheme = createTheme(
+    theme(toggleDarkMode ? DARK_THEME : LIGHT_THEME),
+  );
   return (
     <ThemeProvider theme={customTheme}>
       <CssBaseline />
