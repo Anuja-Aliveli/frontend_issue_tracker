@@ -12,6 +12,7 @@ import {
   updatePasswordInterface,
 } from '../../Interfaces/authInterface';
 import { useNavigate } from 'react-router-dom';
+import { DASHBOARD, LOGIN } from '../../utils/constants';
 
 interface AuthContextProviderProps {
   children: ReactNode;
@@ -51,7 +52,7 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
         password: password,
       };
       const data = await postRegister(requestBody);
-      navigate('/login');
+      navigate(LOGIN);
     } catch (err: any) {
       setRegisterError(err.response.data.error);
     } finally {
@@ -71,7 +72,7 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
       localStorage.setItem('token', JSON.stringify(token));
       localStorage.setItem('email', JSON.stringify(email));
       localStorage.setItem('userName', JSON.stringify(user_name));
-      navigate('/other');
+      navigate(DASHBOARD);
     } catch (err: any) {
       setLoginError(err.response.data.error);
     } finally {
@@ -102,7 +103,7 @@ const AuthContextProvider: FC<AuthContextProviderProps> = ({ children }) => {
       const data = await updatePassword(requestBody);
       setEmail('');
       setPassword('');
-      navigate('/login');
+      navigate(LOGIN);
     } catch (err: any) {
       setPasswordUpdateResult(err.response.data.error);
     } finally {

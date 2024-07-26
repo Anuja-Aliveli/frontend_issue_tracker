@@ -4,18 +4,21 @@ import { useNavigate } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import WorkIcon from '@mui/icons-material/Work';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import ReportIcon from '@mui/icons-material/Report';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { SidebarOptions } from '../../Interfaces/MainInterface';
+import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import {
   BOOKMARKS,
   CREATE_ISSUE,
   CREATE_PROJECT,
   DASHBOARD,
   ISSUES,
+  LOGIN,
   PROJECTS,
 } from '../../utils/constants';
 import Dashboard from '../Dashboard/Dashboard';
+import BugReportIcon from '@mui/icons-material/BugReport';
+import CreateProject from '../CreateProject/CreateProject';
 
 interface MainContextProviderProps {
   children: ReactNode;
@@ -27,10 +30,14 @@ const MainContextProvider: FC<MainContextProviderProps> = ({ children }) => {
   const [selectedRoute, setSelectedRoute] = useState<string>(DASHBOARD);
   const sideBarOptions: SidebarOptions[] = [
     { text: 'Dashboard', icon: <DashboardIcon />, route: DASHBOARD },
-    { text: 'Create Project', icon: <AddBoxIcon />, route: CREATE_PROJECT },
+    {
+      text: 'Create Project',
+      icon: <CreateNewFolderIcon />,
+      route: CREATE_PROJECT,
+    },
     { text: 'Projects', icon: <WorkIcon />, route: PROJECTS },
     { text: 'Create Issue', icon: <AddBoxIcon />, route: CREATE_ISSUE },
-    { text: 'Issues', icon: <ReportIcon />, route: ISSUES },
+    { text: 'Issues', icon: <BugReportIcon />, route: ISSUES },
     { text: 'Bookmark', icon: <BookmarkIcon />, route: BOOKMARKS },
   ];
   const navigate = useNavigate();
@@ -39,26 +46,7 @@ const MainContextProvider: FC<MainContextProviderProps> = ({ children }) => {
     localStorage.removeItem('userName');
     localStorage.removeItem('email');
     localStorage.removeItem('token');
-    navigate('/login');
-  };
-
-  const renderSelectedRoute = () => {
-    switch (selectedRoute) {
-      case DASHBOARD:
-        return <Dashboard />;
-      case CREATE_PROJECT:
-        return <p>{CREATE_PROJECT}</p>;
-      case PROJECTS:
-        return <p>{PROJECTS}</p>;
-      case CREATE_ISSUE:
-        return <p>{CREATE_ISSUE}</p>;
-      case ISSUES:
-        return <p>{ISSUES}</p>;
-      case BOOKMARKS:
-        return <p>{BOOKMARKS}</p>;
-      default:
-        return <p>Default</p>;
-    }
+    navigate(LOGIN);
   };
 
   return (
@@ -70,9 +58,6 @@ const MainContextProvider: FC<MainContextProviderProps> = ({ children }) => {
         drawerOpen,
         setDrawerOpen,
         sideBarOptions,
-        selectedRoute,
-        setSelectedRoute,
-        renderSelectedRoute,
       }}>
       {children}
     </MainContext.Provider>

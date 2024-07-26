@@ -23,3 +23,6 @@ export const CREATE_PROJECT = '/create-project';
 export const ISSUES = '/issues';
 export const CREATE_ISSUE = '/create-issue';
 export const BOOKMARKS = '/bookmarks';
+export const LOGIN = '/login';
+export const REGISTER = '/register';
+export const FORGOT_PASSWORD = 'forgot-password';

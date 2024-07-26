@@ -13,7 +13,11 @@ import {
   Typography,
 } from '@mui/material';
 import { registerErrorsInterface } from '../../Interfaces/authInterface';
-import { FIELD_REQUIRED, PASSWORD_NOT_MATCHED } from '../../utils/constants';
+import {
+  FIELD_REQUIRED,
+  LOGIN,
+  PASSWORD_NOT_MATCHED,
+} from '../../utils/constants';
 import './auth.css';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
@@ -231,7 +235,7 @@ const Register = () => {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/login" variant="body2">
+              <Link href={LOGIN} variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

@@ -5,21 +5,34 @@ import Main from '../components/Main/Main';
 import MainContextProvider from '../components/Main/MainProvider';
 import AuthContextLayout from '../Layouts/AuthLayout';
 import ThemeProviderWrapper from '../Layouts/ThemeLayout';
+import Dashboard from '../components/Dashboard/Dashboard';
+import CreateProject from '../components/CreateProject/CreateProject';
 import AuthGuard from './Authguard';
+import {
+  FORGOT_PASSWORD,
+  LOGIN,
+  REGISTER,
+  DASHBOARD,
+  CREATE_PROJECT,
+  PROJECTS,
+  CREATE_ISSUE,
+  ISSUES,
+  BOOKMARKS,
+} from '../utils/constants';
 
 const routes = [
   {
-    path: '/register',
+    path: REGISTER,
     element: <Register />,
     layout: <AuthContextLayout />,
   },
   {
-    path: '/login',
+    path: LOGIN,
     element: <Login />,
     layout: <AuthContextLayout />,
   },
   {
-    path: '/forgot-password',
+    path: FORGOT_PASSWORD,
     element: <ForgotPassword />,
     layout: <AuthContextLayout />,
   },
@@ -33,6 +46,14 @@ const routes = [
       </AuthGuard>
     ),
     layout: <ThemeProviderWrapper />,
+    children: [
+      { path: DASHBOARD, element: <Dashboard /> },
+      { path: CREATE_PROJECT, element: <CreateProject /> },
+      { path: PROJECTS, element: <p>{PROJECTS}</p> },
+      { path: CREATE_ISSUE, element: <p>{CREATE_ISSUE}</p> },
+      { path: ISSUES, element: <p>{ISSUES}</p> },
+      { path: BOOKMARKS, element: <p>{BOOKMARKS}</p> },
+    ],
   },
 ];
 

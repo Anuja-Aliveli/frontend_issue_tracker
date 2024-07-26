@@ -8,9 +8,6 @@ interface MainContext {
   setDrawerOpen: (value: boolean) => void;
   drawerOpen: boolean;
   sideBarOptions: SidebarOptions[];
-  selectedRoute: string;
-  setSelectedRoute: (value: string) => void;
-  renderSelectedRoute: () => JSX.Element;
 }
 
 const MainContext = createContext<MainContext | null>(null);

@@ -3,20 +3,12 @@ import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useContext } from 'react';
+import { Outlet } from 'react-router-dom';
 import { LIGHT_THEME } from '../../utils/constants';
-import MainContext from './MainContext';
 
 const Main = () => {
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
-  const mainContextDetails = useContext(MainContext);
-
-  if (!mainContextDetails) {
-    return <div>Loading...</div>;
-  }
-
-  const { renderSelectedRoute } = mainContextDetails;
 
   return (
     <Container
@@ -52,7 +44,7 @@ const Main = () => {
             </Grid>
           )}
           <Grid item xs>
-            {renderSelectedRoute()}
+            <Outlet />
           </Grid>
         </Grid>
       </Box>

@@ -7,6 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useNavigate } from 'react-router-dom';
 import MainContext from './MainContext';
 import {
   LIGHT_THEME,
@@ -23,17 +24,18 @@ const Sidebar = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
+  const navigate = useNavigate();
 
   const mainContextDetails = useContext(MainContext);
   if (!mainContextDetails) {
     return <div>Loading...</div>;
   }
 
-  const { isIconNavbar, sideBarOptions, setSelectedRoute } = mainContextDetails;
+  const { isIconNavbar, sideBarOptions } = mainContextDetails;
 
   const handleListItemClick = (index: number, route: string) => {
     setSelectedIndex(index);
-    setSelectedRoute(route);
+    navigate(route);
   };
 
   return (

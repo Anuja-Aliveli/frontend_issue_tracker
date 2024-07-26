@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 import { loginErrorsInterface } from '../../Interfaces/authInterface';
-import { FIELD_REQUIRED } from '../../utils/constants';
+import { FIELD_REQUIRED, FORGOT_PASSWORD } from '../../utils/constants';
 import './auth.css';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
@@ -171,7 +171,7 @@ const Login = () => {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/forgot-password" variant="body2">
+                <Link href={FORGOT_PASSWORD} variant="body2">
                   Forgot Password?
                 </Link>
               </Grid>
