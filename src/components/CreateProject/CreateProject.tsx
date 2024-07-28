@@ -4,12 +4,11 @@ import {
   Container,
   FormControl,
   Grid,
-  InputLabel,
   MenuItem,
   Select,
-  Skeleton,
   TextField,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import {
   LIGHT_THEME,
@@ -21,7 +20,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const CreateProject = () => {
   const theme = useTheme();
-  const;
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   return (
     <>
       <Container
@@ -29,31 +28,44 @@ const CreateProject = () => {
         sx={{
           height: '100% !important',
           width: '100% !important',
+          overflow: 'auto',
         }}>
         <Box component="form">
           <Typography component="h1" variant="h1">
             Create Project
           </Typography>
-          <Box sx={{ mt: 3 }}>
+          <Box
+            sx={{
+              display: { xs: 'flex', sm: 'flex' },
+              justifyContent: { xs: 'center', sm: 'center' },
+              mt: 3,
+            }}>
             <Grid
               container
               spacing={2}
               sx={{
-                borderBottom:
-                  theme.palette.mode === LIGHT_THEME
-                    ? SIDEBAR_SELECTED_LIGHT_BORDER
-                    : SIDEBAR_SELECTED_DARK_BORDER,
-                paddingBottom: '0.25rem',
+                width: '100%',
+                ...(isMdUp && {
+                  borderBottom:
+                    theme.palette.mode === LIGHT_THEME
+                      ? SIDEBAR_SELECTED_LIGHT_BORDER
+                      : SIDEBAR_SELECTED_DARK_BORDER,
+                  paddingBottom: '0.25rem',
+                }),
               }}>
-              <Grid item md={2}>
+              <Grid item xs={12} md={2}>
                 <Typography component="h1" variant="h4">
                   Owner
                 </Typography>
               </Grid>
-              <Grid item md={10}>
+              <Grid
+                item
+                xs={12}
+                md={10}
+                sx={{ paddingTop: { xs: '10px !important' } }}>
                 <TextField
                   id="standard-basic"
-                  variant="standard"
+                  variant={isMdUp ? 'standard' : 'outlined'}
                   sx={{ width: '100%' }}
                   InputProps={{
                     disableUnderline: true,
@@ -63,26 +75,38 @@ const CreateProject = () => {
               </Grid>
             </Grid>
           </Box>
-          <Box sx={{ mt: 5 }}>
+          <Box
+            sx={{
+              display: { xs: 'flex', sm: 'flex' },
+              justifyContent: { xs: 'center', sm: 'center' },
+              mt: { xs: 2, md: 5 },
+            }}>
             <Grid
               container
               spacing={2}
               sx={{
-                borderBottom:
-                  theme.palette.mode === LIGHT_THEME
-                    ? SIDEBAR_SELECTED_LIGHT_BORDER
-                    : SIDEBAR_SELECTED_DARK_BORDER,
-                paddingBottom: '0.25rem',
+                width: '100%',
+                ...(isMdUp && {
+                  borderBottom:
+                    theme.palette.mode === LIGHT_THEME
+                      ? SIDEBAR_SELECTED_LIGHT_BORDER
+                      : SIDEBAR_SELECTED_DARK_BORDER,
+                  paddingBottom: '0.25rem',
+                }),
               }}>
-              <Grid item md={2}>
+              <Grid item xs={12} md={2}>
                 <Typography component="h1" variant="h4">
                   Project Name
                 </Typography>
               </Grid>
-              <Grid item md={10}>
+              <Grid
+                item
+                xs={12}
+                md={10}
+                sx={{ paddingTop: { xs: '10px !important' } }}>
                 <TextField
                   id="standard-basic"
-                  variant="standard"
+                  variant={isMdUp ? 'standard' : 'outlined'}
                   sx={{ width: '100%' }}
                   InputProps={{
                     disableUnderline: true,
@@ -92,26 +116,38 @@ const CreateProject = () => {
               </Grid>
             </Grid>
           </Box>
-          <Box sx={{ mt: 5 }}>
+          <Box
+            sx={{
+              display: { xs: 'flex', sm: 'flex' },
+              justifyContent: { xs: 'center', sm: 'center' },
+              mt: { xs: 2, md: 5 },
+            }}>
             <Grid
               container
               spacing={2}
               sx={{
-                borderBottom:
-                  theme.palette.mode === LIGHT_THEME
-                    ? SIDEBAR_SELECTED_LIGHT_BORDER
-                    : SIDEBAR_SELECTED_DARK_BORDER,
-                paddingBottom: '0.25rem',
+                width: '100%',
+                ...(isMdUp && {
+                  borderBottom:
+                    theme.palette.mode === LIGHT_THEME
+                      ? SIDEBAR_SELECTED_LIGHT_BORDER
+                      : SIDEBAR_SELECTED_DARK_BORDER,
+                  paddingBottom: '0.25rem',
+                }),
               }}>
-              <Grid item md={2}>
+              <Grid item xs={12} md={2}>
                 <Typography component="h1" variant="h4">
                   Project Description
                 </Typography>
               </Grid>
-              <Grid item md={10}>
+              <Grid
+                item
+                xs={12}
+                md={10}
+                sx={{ paddingTop: { xs: '10px !important' } }}>
                 <TextField
                   id="standard-basic"
-                  variant="standard"
+                  variant={isMdUp ? 'standard' : 'outlined'}
                   sx={{ width: '100%' }}
                   InputProps={{
                     disableUnderline: true,
@@ -121,24 +157,38 @@ const CreateProject = () => {
               </Grid>
             </Grid>
           </Box>
-          <Box sx={{ mt: 5 }}>
+          <Box
+            sx={{
+              display: { xs: 'flex' },
+              justifyContent: { xs: 'center' },
+              mt: { xs: 2, md: 5 },
+            }}>
             <Grid
               container
               spacing={2}
               sx={{
-                borderBottom:
-                  theme.palette.mode === LIGHT_THEME
-                    ? SIDEBAR_SELECTED_LIGHT_BORDER
-                    : SIDEBAR_SELECTED_DARK_BORDER,
-                paddingBottom: '0.25rem',
-                height: '46px',
+                width: '100%',
+                ...(isMdUp && {
+                  borderBottom:
+                    theme.palette.mode === LIGHT_THEME
+                      ? SIDEBAR_SELECTED_LIGHT_BORDER
+                      : SIDEBAR_SELECTED_DARK_BORDER,
+                  paddingBottom: '0.25rem',
+                }),
               }}>
-              <Grid item md={2}>
+              <Grid item xs={12} md={2} sx={{ alignSelf: 'center' }}>
                 <Typography component="h1" variant="h4">
                   Start Date
                 </Typography>
               </Grid>
-              <Grid item md={4}>
+              <Grid
+                item
+                xs={12}
+                md={4}
+                sx={{
+                  paddingTop: { xs: '10px !important' },
+                  alignSelf: 'center',
+                }}>
                 <DatePicker
                   sx={{
                     width: '100%',
@@ -147,7 +197,6 @@ const CreateProject = () => {
                       border: 'none',
                       backgroundColor: 'transparent',
                       boxShadow: 'none',
-                      top: '-10px',
                     },
                     '.MuiOutlinedInput-root.Mui-focused': {
                       outline: 'none',
@@ -160,22 +209,21 @@ const CreateProject = () => {
                   }}
                 />
               </Grid>
-              <Grid item md={2}>
+              <Grid item xs={12} md={2} sx={{ alignSelf: 'center' }}>
                 <Typography component="h1" variant="h4">
                   End Date
                 </Typography>
               </Grid>
-              <Grid item md={4}>
+              <Grid item xs={12} md={4} sx={{ alignSelf: 'center' }}>
                 <DatePicker
                   sx={{
                     width: '100%',
-                    height: '46px',
+
                     '.MuiOutlinedInput-root': {
                       borderRadius: '0px',
                       border: 'none',
                       backgroundColor: 'transparent',
                       boxShadow: 'none',
-                      top: '-10px',
                     },
                     '.MuiOutlinedInput-root.Mui-focused': {
                       outline: 'none',
@@ -190,24 +238,34 @@ const CreateProject = () => {
               </Grid>
             </Grid>
           </Box>
-          <Box sx={{ mt: 5 }}>
+          <Box
+            sx={{
+              display: { xs: 'flex', sm: 'flex' },
+              justifyContent: { xs: 'center', sm: 'center' },
+              mt: { xs: 2, md: 5 },
+            }}>
             <Grid
               container
               spacing={2}
               sx={{
-                borderBottom:
-                  theme.palette.mode === LIGHT_THEME
-                    ? SIDEBAR_SELECTED_LIGHT_BORDER
-                    : SIDEBAR_SELECTED_DARK_BORDER,
-                paddingBottom: '0.25rem',
+                width: '100%',
+                ...(isMdUp && {
+                  borderBottom:
+                    theme.palette.mode === LIGHT_THEME
+                      ? SIDEBAR_SELECTED_LIGHT_BORDER
+                      : SIDEBAR_SELECTED_DARK_BORDER,
+                  paddingBottom: '0.25rem',
+                }),
               }}>
-              <Grid item md={2}>
+              <Grid item xs={12} md={2}>
                 <Typography component="h1" variant="h4">
                   Project Status
                 </Typography>
               </Grid>
-              <Grid item md={10}>
-                <FormControl fullWidth variant="standard">
+              <Grid item xs={12} md={10}>
+                <FormControl
+                  fullWidth
+                  variant={isMdUp ? 'standard' : 'outlined'}>
                   <Select
                     id="projectType"
                     sx={{ width: '100%', borderBottom: 'none' }}
@@ -223,21 +281,25 @@ const CreateProject = () => {
               </Grid>
             </Grid>
           </Box>
-          <Box sx={{ mt: 5 }}>
+          <Box
+            sx={{
+              display: { xs: 'flex', sm: 'flex' },
+              justifyContent: { xs: 'center', sm: 'center' },
+              mt: { xs: 2, md: 5 },
+            }}>
             <Grid container spacing={2}>
-              <Grid item md={1}>
+              <Grid item xs={3} md={1}>
                 <Button type="submit" fullWidth variant="contained">
                   Create
                 </Button>
               </Grid>
-              <Grid item md={1}>
+              <Grid item xs={3} md={1}>
                 <Button type="submit" fullWidth variant="outlined">
                   Cancel
                 </Button>
               </Grid>
             </Grid>
           </Box>
-          <Typography variant="h1">{loading ? <Skeleton /> : 'h1'}</Typography>
         </Box>
       </Container>
     </>
