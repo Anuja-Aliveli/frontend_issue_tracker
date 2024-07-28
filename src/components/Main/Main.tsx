@@ -5,7 +5,6 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Outlet } from 'react-router-dom';
 import { LIGHT_THEME } from '../../utils/constants';
-
 const Main = () => {
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
@@ -43,7 +42,7 @@ const Main = () => {
               <Sidebar />
             </Grid>
           )}
-          <Grid item xs>
+          <Grid item xs sx={{ padding: '1rem' }}>
             <Outlet />
           </Grid>
         </Grid>

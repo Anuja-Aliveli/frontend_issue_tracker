@@ -12,8 +12,8 @@ export const SIDEBAR_SELECTED_LIGHT_COLOR = '#0959AA';
 export const SIDEBAR_SELECTED_DARK_COLOR = '#55a6f6';
 export const SIDEBAR_SELECTED_LIGHT_BG_COLOR = '#F0F7FF';
 export const SIDEBAR_SELECTED_DARK_BG_COLOR = '#0b1b28';
-export const SIDEBAR_SELECTED_LIGHT_BORDER = '1px solid #d2e8ff';
-export const SIDEBAR_SELECTED_DARK_BORDER = '1px solid #023b73';
+export const SIDEBAR_SELECTED_LIGHT_BORDER = '2px solid #d2e8ff';
+export const SIDEBAR_SELECTED_DARK_BORDER = '2px solid #023b73';
 export const SIDEBAR_ICON_COLOR = '#c7d0dd';
 
 // Route Constants

@@ -155,38 +155,38 @@ const getDesignTokens = (mode: PaletteMode) => ({
   typography: {
     fontFamily: ['"Inter", "sans-serif"'].join(','),
     h1: {
-      fontSize: 60,
+      fontSize: 22,
       fontWeight: 600,
       lineHeight: 78 / 70,
       letterSpacing: -0.2,
     },
     h2: {
-      fontSize: 48,
+      fontSize: 20,
       fontWeight: 600,
       lineHeight: 1.2,
     },
     h3: {
-      fontSize: 42,
+      fontSize: 18,
       lineHeight: 1.2,
     },
     h4: {
-      fontSize: 36,
+      fontSize: 16,
       fontWeight: 500,
       lineHeight: 1.5,
     },
     h5: {
-      fontSize: 20,
+      fontSize: 14,
       fontWeight: 600,
     },
     h6: {
-      fontSize: 18,
+      fontSize: 12,
       fontWeight: 600,
     },
     subtitle1: {
-      fontSize: 18,
+      fontSize: 16,
     },
     subtitle2: {
-      fontSize: 16,
+      fontSize: 15,
     },
     body1: {
       fontWeight: 400,
@@ -201,16 +201,16 @@ const getDesignTokens = (mode: PaletteMode) => ({
       fontSize: 12,
     },
     p: {
-      fontSize: 36,
+      fontSize: 16,
       lineHeight: 1.5,
     },
     label: {
-      fontSize: 36,
+      fontSize: 16,
       fontWeight: 500,
       lineHeight: 1.5,
     },
     span: {
-      fontSize: 20,
+      fontSize: 16,
     },
   },
 });
@@ -319,8 +319,9 @@ export default function theme(mode: PaletteMode): ThemeOptions {
           root: ({ theme, ownerState }) => ({
             boxSizing: 'border-box',
             boxShadow: 'none',
-            borderRadius: '10px',
+            borderRadius: '4px',
             textTransform: 'none',
+            fontSize: '14px',
             '&:active': {
               transform: 'scale(0.98)',
             },
@@ -328,7 +329,7 @@ export default function theme(mode: PaletteMode): ThemeOptions {
               maxHeight: '32px',
             }),
             ...(ownerState.size === 'medium' && {
-              height: '40px',
+              height: '32px',
             }),
             ...(ownerState.variant === 'contained' &&
               ownerState.color === 'primary' && {
@@ -336,7 +337,7 @@ export default function theme(mode: PaletteMode): ThemeOptions {
                 background: brand[500],
                 backgroundImage: `linear-gradient(to bottom, ${brand[400]}, ${brand[600]})`,
                 boxShadow: `inset 0 1px ${alpha(brand[300], 0.4)}`,
-                outline: `1px solid ${brand[700]}`,
+                outline: 'none',
                 '&:hover': {
                   background: brand[400],
                   backgroundImage: 'none',
@@ -643,6 +644,24 @@ export default function theme(mode: PaletteMode): ThemeOptions {
               },
             }),
           }),
+        },
+      },
+      MuiSelect: {
+        styleOverrides: {
+          root: {
+            '&:before': {
+              borderBottom: 'none',
+            },
+            '&.Mui-focused:before': {
+              borderBottom: 'none',
+            },
+            '&:after': {
+              borderBottom: 'none',
+            },
+            '&.Mui-focused:after': {
+              borderBottom: 'none',
+            },
+          },
         },
       },
     },

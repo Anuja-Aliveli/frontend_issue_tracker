@@ -7,3 +7,7 @@ body,
   width: 100%;
   font-family: "Inter", sans-serif;
 }
+
+.item-padding {
+  padding: 1rem;
+}
