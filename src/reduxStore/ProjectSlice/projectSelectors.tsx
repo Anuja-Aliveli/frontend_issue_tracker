@@ -1,5 +1,4 @@
-const projectSliceSelector = () => {
-  return 'project selector';
-};
+import { RootState } from '../../store';
 
-export default projectSliceSelector;
+export const selectProjectDetails = (state: RootState) =>
+  state.projects.projectDetails;
