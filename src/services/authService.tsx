@@ -3,7 +3,7 @@ import {
   PostResetData,
   RegisterPostData,
 } from '../Interfaces/authInterface';
-import api from './axios';
+import { api } from './axios';
 
 export const postRegister = async (data: RegisterPostData) => {
   try {

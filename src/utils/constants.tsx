@@ -26,3 +26,6 @@ export const BOOKMARKS = '/bookmarks';
 export const LOGIN = '/login';
 export const REGISTER = '/register';
 export const FORGOT_PASSWORD = 'forgot-password';
+
+// Error stmts
+export const ERROR_OCCURED = 'An error occurred';

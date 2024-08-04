@@ -1,5 +1,7 @@
 export interface ProjectSliceInterface {
   projectDetails: ProjectDetails;
+  isLoading: boolean;
+  error: null | string;
 }
 
 export interface ProjectDetails {

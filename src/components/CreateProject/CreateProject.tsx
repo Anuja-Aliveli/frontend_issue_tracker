@@ -26,7 +26,12 @@ import {
 } from '../../Interfaces/projectInterface';
 import dayjs, { Dayjs } from 'dayjs';
 import { useDispatch } from 'react-redux';
-import { onCreateProject } from '../../reduxStore/ProjectSlice/projectActions';
+import { createProjectAPI } from '../../reduxStore/ProjectSlice/projectEffects';
+import { useSelector } from 'react-redux';
+import {
+  selectError,
+  selectIsLoading,
+} from '../../reduxStore/ProjectSlice/projectSelectors';
 
 const CreateProject = () => {
   const initialProjectDetails: ProjectDetails = {
@@ -41,6 +46,8 @@ const CreateProject = () => {
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   // Define project data form object
   const [projectData, setProjectData] = useState<ProjectDetails>(
@@ -88,7 +95,7 @@ const CreateProject = () => {
 
     if (!hasErrors) {
       setIsSubmitted(false);
-      dispatch(onCreateProject({ projectDetails: projectData }));
+      createProjectAPI(projectData, dispatch);
     }
   };
 
