@@ -19,7 +19,7 @@ export const SIDEBAR_ICON_COLOR = '#c7d0dd';
 // Route Constants
 export const DASHBOARD = '/dashboard';
 export const PROJECTS = '/projects';
-export const CREATE_PROJECT = '/create-project';
+export const CREATE_PROJECT = '/projects/create';
 export const ISSUES = '/issues';
 export const CREATE_ISSUE = '/create-issue';
 export const BOOKMARKS = '/bookmarks';

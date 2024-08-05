@@ -23,3 +23,13 @@ export interface CreateProjectErrors {
   start_date?: boolean;
   end_date?: boolean;
 }
+
+export const initialProjectDetails: ProjectDetails = {
+  owner: '',
+  project_name: '',
+  project_description: '',
+  project_status: '',
+  project_type: '',
+  start_date: null,
+  end_date: null,
+};

@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   FormControl,
   FormHelperText,
@@ -19,9 +20,10 @@ import {
 } from '../../utils/constants';
 import { useTheme } from '@mui/material/styles';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   CreateProjectErrors,
+  initialProjectDetails,
   ProjectDetails,
 } from '../../Interfaces/projectInterface';
 import dayjs, { Dayjs } from 'dayjs';
@@ -32,17 +34,11 @@ import {
   selectError,
   selectIsLoading,
 } from '../../reduxStore/ProjectSlice/projectSelectors';
+import { toast } from '../../utils/ToastMessage';
+import { useNavigate } from 'react-router-dom';
 
 const CreateProject = () => {
-  const initialProjectDetails: ProjectDetails = {
-    owner: '',
-    project_name: '',
-    project_description: '',
-    project_status: '',
-    project_type: '',
-    start_date: null,
-    end_date: null,
-  };
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up('md'));
   const dispatch = useDispatch();
@@ -95,13 +91,19 @@ const CreateProject = () => {
 
     if (!hasErrors) {
       setIsSubmitted(false);
-      createProjectAPI(projectData, dispatch);
+      createProjectAPI(projectData, dispatch, navigate);
     }
   };
 
   const handleCancel = () => {
     setProjectData(initialProjectDetails);
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
 
   return (
     <>
@@ -438,7 +440,7 @@ const CreateProject = () => {
                       <em>Select Status</em>
                     </MenuItem>
                     <MenuItem value="planning">Planning</MenuItem>
-                    <MenuItem value="in_progress">In-Progress</MenuItem>
+                    <MenuItem value="in-progress">In-Progress</MenuItem>
                     <MenuItem value="completed">Completed</MenuItem>
                     <MenuItem value="closed">Closed</MenuItem>
                   </Select>
@@ -509,8 +511,20 @@ const CreateProject = () => {
             }}>
             <Grid container spacing={2}>
               <Grid item xs={3} md={1}>
-                <Button type="submit" fullWidth variant="contained">
-                  Create
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  disabled={isLoading}>
+                  {isLoading ? (
+                    <CircularProgress
+                      size={24}
+                      color="inherit"
+                      sx={{ color: 'white' }}
+                    />
+                  ) : (
+                    'Create'
+                  )}
                 </Button>
               </Grid>
               <Grid item xs={3} md={1}>

@@ -7,6 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Provider } from 'react-redux';
 import store from './store';
+import { initToastManager } from './utils/ToastMessage';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -23,3 +24,5 @@ root.render(
     </LocalizationProvider>
   </React.StrictMode>,
 );
+
+initToastManager();
