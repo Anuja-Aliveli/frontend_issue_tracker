@@ -1,12 +1,7 @@
-import ForgotPassword from '../components/Authentication/ForgotPassword';
-import Login from '../components/Authentication/Login';
-import Register from '../components/Authentication/Register';
-import Main from '../components/Main/Main';
-import MainContextProvider from '../components/Main/MainProvider';
+import React, { Suspense, lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import AuthContextLayout from '../Layouts/AuthLayout';
 import ThemeProviderWrapper from '../Layouts/ThemeLayout';
-import Dashboard from '../components/Dashboard/Dashboard';
-import CreateProject from '../components/CreateProject/CreateProject';
 import AuthGuard from './Authguard';
 import {
   FORGOT_PASSWORD,
@@ -19,6 +14,21 @@ import {
   ISSUES,
   BOOKMARKS,
 } from '../utils/constants';
+
+// Lazy load components
+const Register = lazy(() => import('../components/Authentication/Register'));
+const Login = lazy(() => import('../components/Authentication/Login'));
+const ForgotPassword = lazy(
+  () => import('../components/Authentication/ForgotPassword'),
+);
+const Main = lazy(() => import('../components/Main/Main'));
+const MainContextProvider = lazy(
+  () => import('../components/Main/MainProvider'),
+);
+const Dashboard = lazy(() => import('../components/Dashboard/Dashboard'));
+const CreateProject = lazy(
+  () => import('../components/CreateProject/CreateProject'),
+);
 
 const routes = [
   {
