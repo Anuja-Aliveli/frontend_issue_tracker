@@ -74,7 +74,7 @@ const Navbar = () => {
               bgcolor:
                 theme.palette.mode === LIGHT_THEME
                   ? 'rgba(255, 255, 255, 0.4)'
-                  : 'rgba(0, 0, 0, 0.4)',
+                  : '#0E1726',
               backdropFilter: 'blur(24px)',
               minHeight: '0px !important',
               height: 50,

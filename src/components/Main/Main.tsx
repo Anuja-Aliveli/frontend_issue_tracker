@@ -42,8 +42,21 @@ const Main = () => {
               <Sidebar />
             </Grid>
           )}
-          <Grid item xs sx={{ padding: '1rem' }}>
-            <Outlet />
+          <Grid
+            item
+            xs
+            sx={{
+              backgroundColor:
+                theme.palette.mode === 'dark' ? '#060818' : '#edf0f5',
+              padding: '1rem',
+            }}>
+            <div
+              style={{
+                backgroundColor:
+                  theme.palette.mode === 'dark' ? '#0E1726' : '#ffffff',
+              }}>
+              <Outlet />
+            </div>
           </Grid>
         </Grid>
       </Box>
