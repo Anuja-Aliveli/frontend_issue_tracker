@@ -114,6 +114,8 @@ const CreateProject = () => {
           width: '100% !important',
           overflow: 'auto',
           padding: '1rem',
+          backgroundColor:
+            theme.palette.mode === 'dark' ? '#0E1726' : '#ffffff',
         }}>
         <Box component="form" onSubmit={handleProjectCreation}>
           <Typography component="h1" variant="h1">

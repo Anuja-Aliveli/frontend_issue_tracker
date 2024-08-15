@@ -12,6 +12,7 @@ import {
   createProject,
   projectCardsDataSuccess,
   projectCardsDataFailure,
+  projectCardsData,
 } from './projectActions';
 
 // Create Project API
@@ -33,11 +34,11 @@ export const createProjectAPI = async (
 };
 
 export const getProjectCards = async (dispatch: any) => {
-  dispatch(createProject());
+  dispatch(projectCardsData());
 
   try {
     const data = await projectCards();
-    dispatch(projectCardsDataSuccess({ cardsData: data }));
+    dispatch(projectCardsDataSuccess({ cardsData: data.data }));
   } catch (error: any) {
     dispatch(
       projectCardsDataFailure(error.response.data.error || ERROR_OCCURED),

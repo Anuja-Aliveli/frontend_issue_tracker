@@ -19,14 +19,7 @@ const initialState: ProjectSliceInterface = {
     start_date: null,
     end_date: null,
   },
-  cardsData: {
-    planning: 0,
-    in_progress: 0,
-    completed: 0,
-    closed: 0,
-    personal: 0,
-    organization: 0,
-  },
+  cardsData: [],
   isLoading: false,
   error: null,
 };

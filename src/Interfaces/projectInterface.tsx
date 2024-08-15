@@ -1,6 +1,8 @@
+import { CardData } from './sharedInterface';
+
 export interface ProjectSliceInterface {
   projectDetails: ProjectDetails;
-  cardsData: CardsData;
+  cardsData: CardData[];
   isLoading: boolean;
   error: null | string;
 }

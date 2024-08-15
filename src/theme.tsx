@@ -167,11 +167,11 @@ const getDesignTokens = (mode: PaletteMode) => ({
     },
     h3: {
       fontSize: 18,
+      fontWeight: 500,
       lineHeight: 1.2,
     },
     h4: {
       fontSize: 16,
-      fontWeight: 500,
       lineHeight: 1.5,
     },
     h5: {
