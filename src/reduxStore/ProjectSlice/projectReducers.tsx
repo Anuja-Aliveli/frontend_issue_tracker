@@ -4,6 +4,9 @@ import {
   createProject,
   createProjectFailure,
   createProjectSuccess,
+  projectCardsData,
+  projectCardsDataFailure,
+  projectCardsDataSuccess,
 } from './projectActions';
 
 const initialState: ProjectSliceInterface = {
@@ -16,12 +19,21 @@ const initialState: ProjectSliceInterface = {
     start_date: null,
     end_date: null,
   },
+  cardsData: {
+    planning: 0,
+    in_progress: 0,
+    completed: 0,
+    closed: 0,
+    personal: 0,
+    organization: 0,
+  },
   isLoading: false,
   error: null,
 };
 
 const projectSliceReducer = createReducer(initialState, (builder) => {
   builder
+    // create Project
     .addCase(createProject, (state) => {
       state.isLoading = true;
       state.error = null;
@@ -32,6 +44,20 @@ const projectSliceReducer = createReducer(initialState, (builder) => {
       state.projectDetails = action.payload.projectDetails;
     })
     .addCase(createProjectFailure, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    })
+    // project cards
+    .addCase(projectCardsData, (state, action) => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase(projectCardsDataSuccess, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.cardsData = action.payload.cardsData;
+    })
+    .addCase(projectCardsDataFailure, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });

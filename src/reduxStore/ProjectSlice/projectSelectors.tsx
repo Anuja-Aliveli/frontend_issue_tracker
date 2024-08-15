@@ -6,3 +6,6 @@ export const selectProjectDetails = (state: RootState) =>
 export const selectIsLoading = (state: RootState) => state.projects.isLoading;
 
 export const selectError = (state: RootState) => state.projects.error;
+
+export const selectProjectCardsData = (state: RootState) =>
+  state.projects.cardsData;

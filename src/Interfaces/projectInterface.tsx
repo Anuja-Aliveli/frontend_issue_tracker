@@ -1,5 +1,6 @@
 export interface ProjectSliceInterface {
   projectDetails: ProjectDetails;
+  cardsData: CardsData;
   isLoading: boolean;
   error: null | string;
 }
@@ -33,3 +34,12 @@ export const initialProjectDetails: ProjectDetails = {
   start_date: null,
   end_date: null,
 };
+
+export interface CardsData {
+  planning: number;
+  in_progress: number;
+  completed: number;
+  closed: number;
+  personal: number;
+  organization: number;
+}

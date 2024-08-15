@@ -14,6 +14,7 @@ import {
   ISSUES,
   BOOKMARKS,
 } from '../utils/constants';
+import Projects from '../components/CreateProject/Projects';
 
 // Lazy load components
 const Register = lazy(() => import('../components/Authentication/Register'));
@@ -59,7 +60,7 @@ const routes = [
     children: [
       { path: DASHBOARD, element: <Dashboard /> },
       { path: CREATE_PROJECT, element: <CreateProject /> },
-      { path: PROJECTS, element: <p>{PROJECTS}</p> },
+      { path: PROJECTS, element: <Projects /> },
       { path: CREATE_ISSUE, element: <p>{CREATE_ISSUE}</p> },
       { path: ISSUES, element: <p>{ISSUES}</p> },
       { path: BOOKMARKS, element: <p>{BOOKMARKS}</p> },

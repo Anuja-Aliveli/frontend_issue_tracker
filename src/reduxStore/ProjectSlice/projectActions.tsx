@@ -11,3 +11,14 @@ export const createProjectSuccess = createAction<{
 export const createProjectFailure = createAction<string>(
   'projects/createProjectFailure',
 );
+
+// Get Project Cards
+export const projectCardsData = createAction('projects/getProjectsCards');
+
+export const projectCardsDataSuccess = createAction<{
+  cardsData: any;
+}>('projects/getProjectsCardsSuccess');
+
+export const projectCardsDataFailure = createAction<string>(
+  'projects/getProjectsCardsFailure',
+);

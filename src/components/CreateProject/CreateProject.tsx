@@ -113,6 +113,7 @@ const CreateProject = () => {
           height: '100% !important',
           width: '100% !important',
           overflow: 'auto',
+          padding: '1rem',
         }}>
         <Box component="form" onSubmit={handleProjectCreation}>
           <Typography component="h1" variant="h1">
