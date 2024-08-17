@@ -1,16 +1,3 @@
-.fieldName input {
-    padding: 11.5px 11px !important;
-    font-family: 'LatoBold' !important;
-    font-size: 16px !important;
-    height: 1.3rem !important;
-}
-
-.fieldName input::placeholder,
-.fieldName label {
-    font-family: 'LatoBold' !important;
-    font-size: 16px !important;
-}
-
 .authButton {
     background-color: #0959AA !important;
     color: #ffffff !important;

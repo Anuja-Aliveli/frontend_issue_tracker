@@ -1,8 +1,9 @@
-import { CardData } from './sharedInterface';
+import { CardData, TableColumnData, TableRowData } from './sharedInterface';
 
 export interface ProjectSliceInterface {
   projectDetails: ProjectDetails;
   cardsData: CardData[];
+  projectsList: ProjectsList;
   isLoading: boolean;
   error: null | string;
 }
@@ -44,4 +45,10 @@ export interface CardsData {
   closed: number;
   personal: number;
   organization: number;
+}
+
+export interface ProjectsList {
+  column_data: TableColumnData[];
+  project_list: TableRowData[];
+  total_count: number;
 }

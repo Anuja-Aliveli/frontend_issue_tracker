@@ -3,7 +3,11 @@ import {
   initialProjectDetails,
   ProjectDetails,
 } from '../../Interfaces/projectInterface';
-import { onCreateProject, projectCards } from '../../services/projectService';
+import {
+  onCreateProject,
+  projectCards,
+  projectList,
+} from '../../services/projectService';
 import { ERROR_OCCURED } from '../../utils/constants';
 import { toast } from '../../utils/ToastMessage';
 import {
@@ -13,6 +17,9 @@ import {
   projectCardsDataSuccess,
   projectCardsDataFailure,
   projectCardsData,
+  projectsList,
+  projectsListSuccess,
+  projectsListFailure,
 } from './projectActions';
 
 // Create Project API
@@ -33,6 +40,7 @@ export const createProjectAPI = async (
   }
 };
 
+// Get Project Cards
 export const getProjectCards = async (dispatch: any) => {
   dispatch(projectCardsData());
 
@@ -43,5 +51,16 @@ export const getProjectCards = async (dispatch: any) => {
     dispatch(
       projectCardsDataFailure(error.response.data.error || ERROR_OCCURED),
     );
+  }
+};
+
+// Get Projects List
+export const getProjectsList = async (dispatch: any) => {
+  dispatch(projectsList());
+  try {
+    const data = await projectList();
+    dispatch(projectsListSuccess({ projectsList: data.data }));
+  } catch (error: any) {
+    dispatch(projectsListFailure(error.response.data.error || ERROR_OCCURED));
   }
 };

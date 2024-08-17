@@ -9,3 +9,6 @@ export const selectError = (state: RootState) => state.projects.error;
 
 export const selectProjectCardsData = (state: RootState) =>
   state.projects.cardsData;
+
+export const selectProjectsList = (state: RootState) =>
+  state.projects.projectsList;

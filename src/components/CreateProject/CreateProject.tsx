@@ -13,6 +13,7 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import {
+  DARK_THEME,
   FIELD_REQUIRED,
   LIGHT_THEME,
   SIDEBAR_SELECTED_DARK_BORDER,
@@ -115,7 +116,7 @@ const CreateProject = () => {
           overflow: 'auto',
           padding: '1rem',
           backgroundColor:
-            theme.palette.mode === 'dark' ? '#0E1726' : '#ffffff',
+            theme.palette.mode === DARK_THEME ? '#0E1726' : '#ffffff',
         }}>
         <Box component="form" onSubmit={handleProjectCreation}>
           <Typography component="h1" variant="h1">
@@ -172,7 +173,7 @@ const CreateProject = () => {
             sx={{
               display: { xs: 'flex', sm: 'flex' },
               justifyContent: { xs: 'center', sm: 'center' },
-              mt: { xs: 2, md: 5 },
+              mt: { xs: 2, md: 3 },
             }}>
             <Grid
               container
@@ -223,7 +224,7 @@ const CreateProject = () => {
             sx={{
               display: { xs: 'flex', sm: 'flex' },
               justifyContent: { xs: 'center', sm: 'center' },
-              mt: { xs: 2, md: 5 },
+              mt: { xs: 2, md: 3 },
             }}>
             <Grid
               container
@@ -274,7 +275,7 @@ const CreateProject = () => {
             sx={{
               display: { xs: 'flex' },
               justifyContent: { xs: 'center' },
-              mt: { xs: 2, md: 5 },
+              mt: { xs: 2, md: 3 },
             }}>
             <Grid
               container
@@ -404,7 +405,7 @@ const CreateProject = () => {
             sx={{
               display: { xs: 'flex', sm: 'flex' },
               justifyContent: { xs: 'center', sm: 'center' },
-              mt: { xs: 2, md: 5 },
+              mt: { xs: 2, md: 3 },
             }}>
             <Grid
               container
@@ -458,7 +459,7 @@ const CreateProject = () => {
             sx={{
               display: { xs: 'flex', sm: 'flex' },
               justifyContent: { xs: 'center', sm: 'center' },
-              mt: { xs: 2, md: 5 },
+              mt: { xs: 2, md: 3 },
             }}>
             <Grid
               container
@@ -510,7 +511,7 @@ const CreateProject = () => {
             sx={{
               display: { xs: 'flex', sm: 'flex' },
               justifyContent: { xs: 'center', sm: 'center' },
-              mt: { xs: 2, md: 5 },
+              mt: { xs: 2, md: 3 },
             }}>
             <Grid container spacing={2}>
               <Grid item xs={3} md={1}>

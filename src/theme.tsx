@@ -2,6 +2,14 @@ import type {} from '@mui/material/themeCssVarsAugmentation';
 import { ThemeOptions, alpha } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
 import { PaletteMode } from '@mui/material';
+import {
+  DARK_THEME,
+  LIGHT_THEME,
+  SIDEBAR_SELECTED_DARK_BG_COLOR,
+  SIDEBAR_SELECTED_DARK_BORDER,
+  SIDEBAR_SELECTED_LIGHT_BG_COLOR,
+  SIDEBAR_SELECTED_LIGHT_BORDER,
+} from './utils/constants';
 
 declare module '@mui/material/styles/createPalette' {
   interface ColorRange {
@@ -211,6 +219,10 @@ const getDesignTokens = (mode: PaletteMode) => ({
     },
     span: {
       fontSize: 16,
+    },
+    a: {
+      fontSize: 16,
+      textDecoration: 'none',
     },
   },
 });
@@ -598,7 +610,7 @@ export default function theme(mode: PaletteMode): ThemeOptions {
             '& .MuiOutlinedInput-root': {
               boxSizing: 'border-box',
               minWidth: 280,
-              minHeight: 40,
+              minHeight: 35,
               height: '100%',
               borderRadius: '10px',
               border: '1px solid',
@@ -614,15 +626,15 @@ export default function theme(mode: PaletteMode): ThemeOptions {
               },
               '&.Mui-focused': {
                 borderColor: brand[400],
-                outline: '4px solid',
-                outlineColor: brand[200],
+                // Remove the outline
+                outline: 'none',
               },
             },
             ...(theme.palette.mode === 'dark' && {
               '& .MuiOutlinedInput-root': {
                 boxSizing: 'border-box',
                 minWidth: 280,
-                minHeight: 40,
+                minHeight: 35,
                 height: '100%',
                 borderRadius: '10px',
                 border: '1px solid',
@@ -630,7 +642,7 @@ export default function theme(mode: PaletteMode): ThemeOptions {
                 transition: 'border-color 120ms ease-in',
                 '& fieldset': {
                   border: 'none',
-                  boxShadow: ' 0px 2px 4px rgba(0, 0, 0, 0.4)',
+                  boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.4)',
                   background: `${alpha(gray[800], 0.4)}`,
                 },
                 '&:hover': {
@@ -638,8 +650,8 @@ export default function theme(mode: PaletteMode): ThemeOptions {
                 },
                 '&.Mui-focused': {
                   borderColor: brand[400],
-                  outline: '4px solid',
-                  outlineColor: alpha(brand[500], 0.5),
+                  // Remove the outline
+                  outline: 'none',
                 },
               },
             }),
@@ -662,6 +674,46 @@ export default function theme(mode: PaletteMode): ThemeOptions {
               borderBottom: 'none',
             },
           },
+        },
+      },
+      MuiTableCell: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            padding: '0px',
+            margin: '0px',
+            height: '35px !important',
+            minHeight: '35px',
+            lineHeight: '35px',
+            textAlign: 'center',
+            boxSizing: 'border-box',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+            borderBottom:
+              theme.palette.mode === DARK_THEME
+                ? SIDEBAR_SELECTED_DARK_BORDER
+                : SIDEBAR_SELECTED_LIGHT_BORDER,
+
+            '&:hover': {
+              backgroundColor:
+                theme.palette.mode === DARK_THEME
+                  ? SIDEBAR_SELECTED_DARK_BG_COLOR
+                  : SIDEBAR_SELECTED_LIGHT_BG_COLOR,
+            },
+            '&.MuiTableCell-body.MuiTableCell-sizeMedium': {
+              padding: '0px !important',
+              margin: '0px !important',
+              height: '35px !important',
+              minHeight: '35px !important',
+              lineHeight: '35px !important',
+              textAlign: 'center',
+              boxSizing: 'border-box',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              fontSize: '12px !important',
+            },
+          }),
         },
       },
     },

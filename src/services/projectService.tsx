@@ -20,3 +20,13 @@ export const projectCards = async () => {
     throw error;
   }
 };
+
+// Project List
+export const projectList = async () => {
+  try {
+    const response = await tokenApi.get('projects/');
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
