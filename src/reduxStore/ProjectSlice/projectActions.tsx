@@ -37,3 +37,12 @@ export const projectsListSuccess = createAction<{
 export const projectsListFailure = createAction<string>(
   'projects/getProjectsListFailure',
 );
+
+// Get project details
+export const getProjectDetails = createAction<{
+  projectDetails: ProjectDetails;
+}>('projects/getProjectDetails');
+
+export const getProjectDetailsFailure = createAction<string>(
+  'projects/getProjectDetailsFailure',
+);

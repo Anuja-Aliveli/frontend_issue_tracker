@@ -13,6 +13,7 @@ import {
   CREATE_ISSUE,
   ISSUES,
   BOOKMARKS,
+  EDIT_PROJECT,
 } from '../utils/constants';
 import Projects from '../components/CreateProject/Projects';
 
@@ -60,6 +61,7 @@ const routes = [
     children: [
       { path: DASHBOARD, element: <Dashboard /> },
       { path: CREATE_PROJECT, element: <CreateProject /> },
+      { path: EDIT_PROJECT, element: <CreateProject /> },
       { path: PROJECTS, element: <Projects /> },
       { path: CREATE_ISSUE, element: <p>{CREATE_ISSUE}</p> },
       { path: ISSUES, element: <p>{ISSUES}</p> },

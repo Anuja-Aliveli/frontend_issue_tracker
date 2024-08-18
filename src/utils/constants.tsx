@@ -24,6 +24,7 @@ export const DARK_INPUT_BACKGROUND = '#060818';
 export const DASHBOARD = '/dashboard';
 export const PROJECTS = '/projects';
 export const CREATE_PROJECT = '/projects/create';
+export const EDIT_PROJECT = '/projects/edit/:projectId';
 export const ISSUES = '/issues';
 export const CREATE_ISSUE = '/create-issue';
 export const BOOKMARKS = '/bookmarks';
@@ -39,8 +40,8 @@ export const TH = 'th';
 export const ST = 'st';
 export const ND = 'nd';
 export const RD = 'rd';
-export const AM = 'am';
-export const PM = 'pm';
+export const AM = 'AM';
+export const PM = 'PM';
 export const monthNames = [
   'Jan',
   'Feb',
@@ -64,7 +65,7 @@ export const TABLE_CELL_LINK = 'link';
 export const TABLE_CELL_ACTION = 'action';
 export const ASC = 'asc';
 export const DESC = 'desc';
-export const PAGINATION_OPTIONS = [5, 10, 25];
+export const PAGINATION_OPTIONS = [10, 15, 20];
 
 // Project Status
 export const PLANNING = 'planning';
@@ -73,3 +74,12 @@ export const COMPLETED = 'completed';
 export const CLOSED = 'closed';
 export const PERSONAL = 'personal';
 export const ORGANIZATION = 'organization';
+
+// Project Action Values
+export const EDIT = 'edit';
+export const DELETE = 'delete';
+export const VIEW = 'view';
+
+// Project Constants
+export const CREATE_PROJECT_TEXT = 'Create Project';
+export const EDIT_PROJECT_TEXT = 'Edit Project';

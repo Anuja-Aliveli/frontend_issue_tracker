@@ -10,12 +10,21 @@ import {
 } from '../../reduxStore/ProjectSlice/projectSelectors';
 import CountCard from '../Common/countCard';
 import {
+  fetchProjectDetails,
   getProjectCards,
   getProjectsList,
 } from '../../reduxStore/ProjectSlice/projectEffects';
 import { toast } from '../../utils/ToastMessage';
 import TableComponent from '../Common/flatTable';
-import { TableRowData } from '../../Interfaces/sharedInterface';
+import {
+  ActionOptions,
+  ProjectActionData,
+  TableRowData,
+} from '../../Interfaces/sharedInterface';
+import { createProjectSuccess } from '../../reduxStore/ProjectSlice/projectActions';
+import { ProjectDetails } from '../../Interfaces/projectInterface';
+import { EDIT } from '../../utils/constants';
+import { useNavigate } from 'react-router-dom';
 
 const Projects = () => {
   const theme = useTheme();
@@ -25,6 +34,14 @@ const Projects = () => {
   const error = useSelector(selectError);
   const cardsData = useSelector(selectProjectCardsData);
   const projectsList = useSelector(selectProjectsList);
+  const [searchInput, setSearchInput] = useState<string>('');
+  const [page, setPage] = useState<number>(1);
+  const [limit, setLimit] = useState<number>(10);
+  const [sortField, setSortField] = useState<string>('created_at');
+  const [sortDirection, setSortDirection] = useState<string>('desc');
+  const [projectActionData, setProjectActionData] =
+    useState<ProjectActionData | null>(null);
+  const navigate = useNavigate();
 
   const renderProjects = () => {
     return (
@@ -33,16 +50,12 @@ const Projects = () => {
         <TableComponent
           columnData={projectsList.column_data}
           rowData={projectsList.project_list}
-          isAllRowSelected={false}
-          isSelection={false}
-          isActionBtn={false}
-          actionOptions={[]}
-          onRowSelect={handleRowSelect}
+          isActionBtn={true}
+          actionOptions={projectsList.action_options}
           onActionClick={handleActionClick}
-          onAllRows={handleAllRows}
-          showSort={false}
+          showSort={true}
           handleSort={handleSort}
-          showPagination={false}
+          showPagination={true}
           handlePagination={handlePagination}
           showSearch={true}
           handleSearch={handleSearch}
@@ -59,9 +72,6 @@ const Projects = () => {
     };
 
     fetchData();
-    if (projectsList) {
-      console.log('dddd fff', projectsList);
-    }
   }, []);
 
   if (isLoading) {
@@ -72,54 +82,51 @@ const Projects = () => {
     toast.error(error);
   }
 
-  // Handler for row selection
-  const handleRowSelect = (rowData: any) => {
-    console.log('ddd selected row', rowData);
-  };
-
   // Handler for action click
-  const handleActionClick = (row: any, action: string) => {
-    console.log(`Action ${action} clicked for row ID:`, row);
+  const handleActionClick = (row: any, action: ActionOptions) => {
+    console.log(`Action ${action} clicked for row ID:`, row, action);
+    setProjectActionData({ project_details: row, action_details: action });
+    if (action.value === EDIT) {
+      fetchProjectDetails(dispatch, row.project_id);
+      navigate(row.route_link[row.project_id]);
+    }
   };
 
-  // Action Options
-  const actionOptions = [
-    {
-      actId: 1,
-      label: 'Edit',
-      value: 'edit',
-    },
-    {
-      actId: 1,
-      label: 'Delete',
-      value: 'delete',
-    },
-    {
-      actId: 1,
-      label: 'View',
-      value: 'view',
-    },
-  ];
-
-  // On All Rows Selected
-  const handleAllRows = (rowsData: any) => {
-    console.log(`all rows ${rowsData}`);
+  const triggerProjectsList = () => {
+    getProjectsList(
+      dispatch,
+      searchInput,
+      page,
+      limit,
+      sortField,
+      sortDirection,
+    );
   };
 
   const handleSort = (sortField: string, sortDirection: string) => {
-    console.log('sorted', sortField, sortDirection);
+    setSortField(sortField);
+    setSortDirection(sortDirection);
+    triggerProjectsList();
   };
 
   const handlePagination = (page: number, limit: number) => {
-    console.log('pagination', page, limit);
+    setPage(page);
+    setLimit(limit);
+    triggerProjectsList();
   };
 
-  const handleSearch = (searchInput: string) => {
-    console.log('search Input', searchInput);
+  const handleSearch = (input: string) => {
+    setSearchInput(input);
+    triggerProjectsList();
   };
 
   const handleRefresh = () => {
-    console.log('refresh');
+    setSortField('created_at');
+    setSortDirection('desc');
+    setSearchInput('');
+    setPage(1);
+    setLimit(10);
+    triggerProjectsList();
   };
 
   return renderProjects();

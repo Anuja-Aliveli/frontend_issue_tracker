@@ -13,7 +13,11 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import {
+  CREATE_PROJECT,
+  CREATE_PROJECT_TEXT,
   DARK_THEME,
+  EDIT,
+  EDIT_PROJECT_TEXT,
   FIELD_REQUIRED,
   LIGHT_THEME,
   SIDEBAR_SELECTED_DARK_BORDER,
@@ -29,14 +33,18 @@ import {
 } from '../../Interfaces/projectInterface';
 import dayjs, { Dayjs } from 'dayjs';
 import { useDispatch } from 'react-redux';
-import { createProjectAPI } from '../../reduxStore/ProjectSlice/projectEffects';
+import {
+  createProjectAPI,
+  editProjectAPI,
+} from '../../reduxStore/ProjectSlice/projectEffects';
 import { useSelector } from 'react-redux';
 import {
   selectError,
   selectIsLoading,
+  selectProjectDetails,
 } from '../../reduxStore/ProjectSlice/projectSelectors';
 import { toast } from '../../utils/ToastMessage';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const CreateProject = () => {
   const navigate = useNavigate();
@@ -45,6 +53,7 @@ const CreateProject = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
+  const projectDetails = useSelector(selectProjectDetails);
 
   // Define project data form object
   const [projectData, setProjectData] = useState<ProjectDetails>(
@@ -61,6 +70,23 @@ const CreateProject = () => {
     });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const location = useLocation();
+  const [isEditProject, setIsEditProject] = useState<boolean>(false);
+
+  useEffect(() => {
+    const currentPath = location.pathname;
+    if (currentPath === CREATE_PROJECT) {
+      setIsEditProject(false);
+    } else if (currentPath.includes(EDIT)) {
+      setIsEditProject(true);
+    }
+    if (projectDetails) {
+      setProjectData(projectDetails);
+    }
+    if (error) {
+      toast.error(error);
+    }
+  }, [error, projectDetails]);
 
   const handleFieldChange = (
     fieldName: string,
@@ -92,19 +118,17 @@ const CreateProject = () => {
 
     if (!hasErrors) {
       setIsSubmitted(false);
-      createProjectAPI(projectData, dispatch, navigate);
+      if (isEditProject) {
+        editProjectAPI(projectData, dispatch, navigate);
+      } else {
+        createProjectAPI(projectData, dispatch, navigate);
+      }
     }
   };
 
   const handleCancel = () => {
     setProjectData(initialProjectDetails);
   };
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
-  }, [error]);
 
   return (
     <>
@@ -120,7 +144,7 @@ const CreateProject = () => {
         }}>
         <Box component="form" onSubmit={handleProjectCreation}>
           <Typography component="h1" variant="h1">
-            Create Project
+            {isEditProject ? EDIT_PROJECT_TEXT : CREATE_PROJECT_TEXT}
           </Typography>
           <Box
             sx={{
@@ -526,6 +550,8 @@ const CreateProject = () => {
                       color="inherit"
                       sx={{ color: 'white' }}
                     />
+                  ) : isEditProject ? (
+                    'Update'
                   ) : (
                     'Create'
                   )}

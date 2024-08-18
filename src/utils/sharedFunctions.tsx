@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import {
   AM,
   CLOSED,
@@ -12,6 +13,7 @@ import {
   monthNames,
 } from './constants';
 
+// Format Date Time
 export const formatDateTime = (dateString: string): string => {
   const date = new Date(dateString);
 

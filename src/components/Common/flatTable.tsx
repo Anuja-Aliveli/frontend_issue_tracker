@@ -30,6 +30,7 @@ import {
   getStatusColor,
 } from '../../utils/sharedFunctions';
 import {
+  ActionOptions,
   TableColumnData,
   TableComponentProps,
   TableRowData,
@@ -87,11 +88,11 @@ const TableComponent = (props: TableComponentProps) => {
   );
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [currentRow, setCurrentRow] = useState<TableRowData | null>(null);
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const [sortField, setSortField] = useState<string>('');
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(10);
-  const [searchInput, setSearchInput] = useState<string>('');
+  const [tableSearchInput, setTableSearchInput] = useState<string>('');
 
   useEffect(() => {
     setCurrentRowData(rowData);
@@ -138,7 +139,7 @@ const TableComponent = (props: TableComponentProps) => {
   };
 
   // Handle Action click
-  const handleActionClick = (action: string) => {
+  const handleActionClick = (action: ActionOptions) => {
     if (currentRow && onActionClick) {
       onActionClick(currentRow, action);
     }
@@ -147,9 +148,8 @@ const TableComponent = (props: TableComponentProps) => {
 
   // Handle Sort
   const onSort = (field: string) => {
-    const newSortDirection =
-      sortField === field && sortDirection === ASC ? DESC : ASC;
     setSortField(field);
+    const newSortDirection = sortDirection === ASC ? DESC : ASC;
     setSortDirection(newSortDirection);
 
     if (handleSort) {
@@ -161,7 +161,7 @@ const TableComponent = (props: TableComponentProps) => {
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
     if (handlePagination) {
-      handlePagination(newPage, limit);
+      handlePagination(newPage + 1, limit);
     }
   };
 
@@ -174,13 +174,18 @@ const TableComponent = (props: TableComponentProps) => {
     setLimit(newLimit);
     setPage(newPage);
     if (handlePagination) {
-      handlePagination(newPage, newLimit);
+      handlePagination(newPage + 1, newLimit);
     }
   };
 
   // Handle Refresh
   const onRefresh = () => {
     if (handleRefresh) {
+      setTableSearchInput('');
+      setPage(0);
+      setLimit(10);
+      setSortField('');
+      setSortDirection('desc');
       handleRefresh();
     }
   };
@@ -188,7 +193,7 @@ const TableComponent = (props: TableComponentProps) => {
   // Handle Search
   const onSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    setSearchInput(newValue);
+    setTableSearchInput(newValue);
     if (handleSearch) {
       handleSearch(newValue);
     }
@@ -329,6 +334,7 @@ const TableComponent = (props: TableComponentProps) => {
           ))}
           {isActionBtn && (
             <TableCell
+              key={'Action'}
               sx={{
                 color:
                   theme.palette.mode === DARK_THEME
@@ -358,26 +364,30 @@ const TableComponent = (props: TableComponentProps) => {
         {/* <Typography component="h1" variant="h3" sx={{ marginBottom: 2 }}>
           No Data
         </Typography> */}
-        {currentRowData.slice(page * limit, page * limit + limit).map((row) => (
-          <TableRow key={`row-${row.rowId}`}>
-            {isSelection && (
-              <TableCell padding="checkbox">
-                <Checkbox
-                  checked={row.checked || false}
-                  onChange={() => handleRowSelect(false, row)}
-                />
-              </TableCell>
-            )}
-            {columnData.map((column) => renderCellType(column, row))}
-            {isActionBtn && (
-              <TableCell>
-                <IconButton onClick={(e) => handleMenuOpen(e, row)}>
-                  <MoreVertIcon />
-                </IconButton>
-              </TableCell>
-            )}
-          </TableRow>
-        ))}
+        {currentRowData
+          .slice(page * limit, page * limit + limit)
+          .map((row, index) => (
+            <TableRow key={`row-${index}`}>
+              {isSelection && (
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    checked={row.checked || false}
+                    onChange={() => handleRowSelect(false, row)}
+                  />
+                </TableCell>
+              )}
+              {columnData.map((column) => renderCellType(column, row))}
+              {isActionBtn && (
+                <TableCell>
+                  <IconButton
+                    onClick={(e) => handleMenuOpen(e, row)}
+                    size="small">
+                    <MoreVertIcon fontSize="small" />
+                  </IconButton>
+                </TableCell>
+              )}
+            </TableRow>
+          ))}
       </TableBody>
     );
   };
@@ -411,7 +421,7 @@ const TableComponent = (props: TableComponentProps) => {
           {actionOptions.map((actionItem, actionIndex) => (
             <MenuItem
               key={`action-${actionIndex}-${actionItem.actId}`}
-              onClick={() => handleActionClick(actionItem.value)}>
+              onClick={() => handleActionClick(actionItem)}>
               {actionItem.label}
             </MenuItem>
           ))}
@@ -441,13 +451,13 @@ const TableComponent = (props: TableComponentProps) => {
               width: { xs: '100%', md: '280px' },
               height: '35px !important',
             }}
-            value={searchInput}
+            value={tableSearchInput}
             onChange={onSearchInput}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <IconButton color="primary">
-                    <SearchIcon />
+                  <IconButton color="primary" size="small">
+                    <SearchIcon fontSize="small" />
                   </IconButton>
                 </InputAdornment>
               ),

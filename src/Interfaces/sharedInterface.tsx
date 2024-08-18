@@ -37,7 +37,7 @@ export interface TableComponentProps {
   onAllRows?: (rowsData: any) => void;
   isActionBtn?: boolean;
   actionOptions?: TableActionOptions[];
-  onActionClick?: (row: any, action: string) => void;
+  onActionClick?: (row: any, action: ActionOptions) => void;
   showSort?: boolean;
   handleSort?: (sortField: string, sortDirection: string) => void;
   showPagination?: boolean;
@@ -45,4 +45,15 @@ export interface TableComponentProps {
   showSearch?: boolean;
   handleSearch?: (searchInput: string) => void;
   handleRefresh?: () => void;
+}
+
+export interface ActionOptions {
+  actId: number;
+  label: string;
+  value: string;
+}
+
+export interface ProjectActionData {
+  project_details: TableRowData;
+  action_details: ActionOptions;
 }
