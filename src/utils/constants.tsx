@@ -19,6 +19,8 @@ export const LIGHT_BORDER = '1px solid #D6E2EB';
 export const DARK_BORDER = '1px solid #2c3e50';
 export const LIGHT_INPUT_BACKGROUND = '#f2f5f8';
 export const DARK_INPUT_BACKGROUND = '#060818';
+export const DARK_BG_COLOR = '#0E1726';
+export const LIGHT_BG_COLOR = '#ffffff';
 
 // Route Constants
 export const DASHBOARD = '/dashboard';

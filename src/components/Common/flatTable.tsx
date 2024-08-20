@@ -55,6 +55,8 @@ import {
   SIDEBAR_SELECTED_LIGHT_BORDER,
   SIDEBAR_SELECTED_DARK_COLOR,
   SIDEBAR_SELECTED_LIGHT_COLOR,
+  DARK_BG_COLOR,
+  LIGHT_BG_COLOR,
 } from '../../utils/constants';
 import { visuallyHidden } from '@mui/utils';
 import SearchIcon from '@mui/icons-material/Search';
@@ -417,7 +419,15 @@ const TableComponent = (props: TableComponentProps) => {
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
-          onClose={handleMenuClose}>
+          onClose={handleMenuClose}
+          PaperProps={{
+            sx: {
+              backgroundColor:
+                theme.palette.mode === DARK_THEME
+                  ? DARK_BG_COLOR
+                  : LIGHT_BG_COLOR,
+            },
+          }}>
           {currentRow &&
             currentRow.action_options.map(
               (actionItem: ActionOptions, actionIndex: number) => (
