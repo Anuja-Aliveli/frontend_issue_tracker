@@ -418,13 +418,16 @@ const TableComponent = (props: TableComponentProps) => {
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}>
-          {actionOptions.map((actionItem, actionIndex) => (
-            <MenuItem
-              key={`action-${actionIndex}-${actionItem.actId}`}
-              onClick={() => handleActionClick(actionItem)}>
-              {actionItem.label}
-            </MenuItem>
-          ))}
+          {currentRow &&
+            currentRow.action_options.map(
+              (actionItem: ActionOptions, actionIndex: number) => (
+                <MenuItem
+                  key={`action-${actionIndex}-${actionItem.actId}`}
+                  onClick={() => handleActionClick(actionItem)}>
+                  {actionItem.label}
+                </MenuItem>
+              ),
+            )}
         </Menu>
       );
     }

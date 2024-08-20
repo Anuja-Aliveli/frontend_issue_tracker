@@ -78,6 +78,7 @@ export const ORGANIZATION = 'organization';
 // Project Action Values
 export const EDIT = 'edit';
 export const DELETE = 'delete';
+export const CLOSE = 'close';
 export const VIEW = 'view';
 
 // Project Constants

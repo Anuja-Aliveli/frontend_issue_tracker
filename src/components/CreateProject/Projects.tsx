@@ -10,6 +10,7 @@ import {
 } from '../../reduxStore/ProjectSlice/projectSelectors';
 import CountCard from '../Common/countCard';
 import {
+  editProjectAPI,
   fetchProjectDetails,
   getProjectCards,
   getProjectsList,
@@ -23,7 +24,7 @@ import {
 } from '../../Interfaces/sharedInterface';
 import { createProjectSuccess } from '../../reduxStore/ProjectSlice/projectActions';
 import { ProjectDetails } from '../../Interfaces/projectInterface';
-import { EDIT } from '../../utils/constants';
+import { CLOSE, CLOSED, EDIT } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 
 const Projects = () => {
@@ -86,9 +87,21 @@ const Projects = () => {
   const handleActionClick = (row: any, action: ActionOptions) => {
     console.log(`Action ${action} clicked for row ID:`, row, action);
     setProjectActionData({ project_details: row, action_details: action });
-    if (action.value === EDIT) {
-      fetchProjectDetails(dispatch, row.project_id);
-      navigate(row.route_link[row.project_id]);
+
+    switch (action.value) {
+      case EDIT:
+        fetchProjectDetails(dispatch, row.project_id);
+        navigate(row.route_link.project_id);
+        break;
+
+      case CLOSE:
+        const requestBody = { ...row, project_status: CLOSED };
+        editProjectAPI(requestBody, dispatch, navigate, false);
+        getProjectsList(dispatch);
+        break;
+
+      default:
+        return null;
     }
   };
 

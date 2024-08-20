@@ -92,6 +92,7 @@ export const editProjectAPI = async (
   projectDetails: ProjectDetails,
   dispatch: any,
   navigate: NavigateFunction,
+  isNavigate: boolean = true,
 ) => {
   dispatch(createProject());
 
@@ -99,7 +100,9 @@ export const editProjectAPI = async (
     const data = await onEditProject(projectDetails);
     dispatch(createProjectSuccess({ projectDetails: initialProjectDetails }));
     toast.success(data.message);
-    navigate('/projects');
+    if (isNavigate) {
+      navigate('/projects');
+    }
   } catch (error: any) {
     dispatch(createProjectFailure(error.response.data.error || ERROR_OCCURED));
   }
