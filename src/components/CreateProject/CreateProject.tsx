@@ -105,12 +105,14 @@ const CreateProject = () => {
   const handleProjectCreation = (event: any) => {
     event.preventDefault();
     setIsSubmitted(true);
+
     const newErrors = {
-      owner: projectData.owner.trim() === '',
-      project_name: projectData.project_name.trim() === '',
-      project_description: projectData.project_description.trim() === '',
-      project_status: projectData.project_status.trim() === '',
-      project_type: projectData.project_type.trim() === '',
+      owner: (projectData.owner || '').trim() === '',
+      project_name: (projectData.project_name || '').trim() === '',
+      project_description:
+        (projectData.project_description || '').trim() === '',
+      project_status: (projectData.project_status || '').trim() === '',
+      project_type: (projectData.project_type || '').trim() === '',
     };
 
     setCreateProjectErrors(newErrors);

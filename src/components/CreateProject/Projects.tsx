@@ -20,10 +20,7 @@ import TableComponent from '../Common/flatTable';
 import {
   ActionOptions,
   ProjectActionData,
-  TableRowData,
 } from '../../Interfaces/sharedInterface';
-import { createProjectSuccess } from '../../reduxStore/ProjectSlice/projectActions';
-import { ProjectDetails } from '../../Interfaces/projectInterface';
 import { CLOSE, CLOSED, EDIT } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 
@@ -73,7 +70,7 @@ const Projects = () => {
     };
 
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return <div>Loading...</div>;
