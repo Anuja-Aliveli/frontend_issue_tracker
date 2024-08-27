@@ -16,12 +16,8 @@ import {
   TablePagination,
   TextField,
   InputAdornment,
-  Grid,
   useTheme,
-  Paper,
   Link,
-  colors,
-  Typography,
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
@@ -50,7 +46,6 @@ import {
   LIGHT_INPUT_BACKGROUND,
   SIDEBAR_SELECTED_DARK_BG_COLOR,
   SIDEBAR_SELECTED_LIGHT_BG_COLOR,
-  LIGHT_THEME,
   SIDEBAR_SELECTED_DARK_BORDER,
   SIDEBAR_SELECTED_LIGHT_BORDER,
   SIDEBAR_SELECTED_DARK_COLOR,
@@ -61,7 +56,6 @@ import {
 import { visuallyHidden } from '@mui/utils';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import theme from '../../theme';
 
 const TableComponent = (props: TableComponentProps) => {
   const {
@@ -72,7 +66,6 @@ const TableComponent = (props: TableComponentProps) => {
     isAllRowSelected = false,
     onAllRows,
     isActionBtn = false,
-    actionOptions = [],
     onActionClick,
     showSort = false,
     handleSort,

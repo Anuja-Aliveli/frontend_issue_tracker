@@ -20,9 +20,16 @@ import TableComponent from '../Common/flatTable';
 import {
   ActionOptions,
   ProjectActionData,
+  TableRowData,
 } from '../../Interfaces/sharedInterface';
-import { CLOSE, CLOSED, EDIT } from '../../utils/constants';
+import {
+  CLOSE,
+  CLOSED,
+  EDIT,
+  PROJECT_CLOSE_CONTENT,
+} from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
+import ConfirmDialog from '../Common/confirmDialog';
 
 const Projects = () => {
   const theme = useTheme();
@@ -39,50 +46,30 @@ const Projects = () => {
   const [sortDirection, setSortDirection] = useState<string>('desc');
   const [projectActionData, setProjectActionData] =
     useState<ProjectActionData | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const renderProjects = () => {
-    return (
-      <>
-        <CountCard cardsData={cardsData} />
-        <TableComponent
-          columnData={projectsList.column_data}
-          rowData={projectsList.project_list}
-          isActionBtn={true}
-          actionOptions={projectsList.action_options}
-          onActionClick={handleActionClick}
-          showSort={true}
-          handleSort={handleSort}
-          showPagination={true}
-          handlePagination={handlePagination}
-          showSearch={true}
-          handleSearch={handleSearch}
-          handleRefresh={handleRefresh}
-        />
-      </>
-    );
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await getProjectCards(dispatch);
-      await getProjectsList(dispatch);
+  const handleConfirmDialog = () => {
+    setIsDialogOpen(false);
+    const requestBody = {
+      owner: projectActionData?.project_details.owner,
+      project_name: projectActionData?.project_details.project_name,
+      project_description:
+        projectActionData?.project_details.project_description,
+      project_status: projectActionData?.project_details.project_status,
+      project_type: projectActionData?.project_details.project_type,
+      start_date: projectActionData?.project_details.start_date,
+      end_date: projectActionData?.project_details.end_date,
     };
+    editProjectAPI(requestBody, dispatch, navigate, false);
+    getProjectsList(dispatch);
+  };
 
-    fetchData();
-  }, [dispatch]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    toast.error(error);
-  }
-
-  // Handler for action click
-  const handleActionClick = (row: any, action: ActionOptions) => {
-    console.log(`Action ${action} clicked for row ID:`, row, action);
+  const handleActionClick = (row: TableRowData, action: ActionOptions) => {
     setProjectActionData({ project_details: row, action_details: action });
 
     switch (action.value) {
@@ -92,9 +79,7 @@ const Projects = () => {
         break;
 
       case CLOSE:
-        const requestBody = { ...row, project_status: CLOSED };
-        editProjectAPI(requestBody, dispatch, navigate, false);
-        getProjectsList(dispatch);
+        setIsDialogOpen(true);
         break;
 
       default:
@@ -139,6 +124,48 @@ const Projects = () => {
     triggerProjectsList();
   };
 
-  return renderProjects();
+  useEffect(() => {
+    const fetchData = async () => {
+      await getProjectCards(dispatch);
+      await getProjectsList(dispatch);
+    };
+
+    fetchData();
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    toast.error(error);
+  }
+
+  return (
+    <>
+      <CountCard cardsData={cardsData} />
+      <TableComponent
+        columnData={projectsList.column_data}
+        rowData={projectsList.project_list}
+        isActionBtn={true}
+        actionOptions={projectsList.action_options}
+        onActionClick={handleActionClick}
+        showSort={true}
+        handleSort={handleSort}
+        showPagination={true}
+        handlePagination={handlePagination}
+        showSearch={true}
+        handleSearch={handleSearch}
+        handleRefresh={handleRefresh}
+      />
+      <ConfirmDialog
+        isOpen={isDialogOpen}
+        handleConfirmDialogClose={handleCloseDialog}
+        handleConfirmDialogConfirm={handleConfirmDialog}
+        modalContent={PROJECT_CLOSE_CONTENT}
+      />
+    </>
+  );
 };
+
 export default Projects;

@@ -21,6 +21,8 @@ export const LIGHT_INPUT_BACKGROUND = '#f2f5f8';
 export const DARK_INPUT_BACKGROUND = '#060818';
 export const DARK_BG_COLOR = '#0E1726';
 export const LIGHT_BG_COLOR = '#ffffff';
+export const ERROR_LIGHT_COLOR = '#D32F2F';
+export const ERROR_DARK_COLOR = '#B22A2A';
 
 // Route Constants
 export const DASHBOARD = '/dashboard';
@@ -86,3 +88,7 @@ export const VIEW = 'view';
 // Project Constants
 export const CREATE_PROJECT_TEXT = 'Create Project';
 export const EDIT_PROJECT_TEXT = 'Edit Project';
+
+// Confirm Dialog Constants
+export const PROJECT_CLOSE_CONTENT = 'Do you want to close the project?';
+export const PROJECT_CLOSE_TITLE = 'Close Project';

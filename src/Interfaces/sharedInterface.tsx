@@ -57,3 +57,11 @@ export interface ProjectActionData {
   project_details: TableRowData;
   action_details: ActionOptions;
 }
+
+export interface ConfirmDialogProps {
+  isOpen: boolean;
+  handleConfirmDialogClose: () => void;
+  handleConfirmDialogConfirm: () => void;
+  modalTitle?: string;
+  modalContent: string;
+}
