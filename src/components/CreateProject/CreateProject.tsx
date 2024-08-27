@@ -20,6 +20,7 @@ import {
   EDIT_PROJECT_TEXT,
   FIELD_REQUIRED,
   LIGHT_THEME,
+  PROJECTS,
   SIDEBAR_SELECTED_DARK_BORDER,
   SIDEBAR_SELECTED_LIGHT_BORDER,
 } from '../../utils/constants';
@@ -130,6 +131,7 @@ const CreateProject = () => {
 
   const handleCancel = () => {
     setProjectData(initialProjectDetails);
+    navigate(PROJECTS);
   };
 
   return (
