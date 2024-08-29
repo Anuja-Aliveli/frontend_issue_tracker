@@ -15,7 +15,7 @@ import {
   BOOKMARKS,
   EDIT_PROJECT,
 } from '../utils/constants';
-import Projects from '../components/CreateProject/Projects';
+import Projects from '../components/Projects/Projects';
 
 // Lazy load components
 const Register = lazy(() => import('../components/Authentication/Register'));
@@ -29,7 +29,7 @@ const MainContextProvider = lazy(
 );
 const Dashboard = lazy(() => import('../components/Dashboard/Dashboard'));
 const CreateProject = lazy(
-  () => import('../components/CreateProject/CreateProject'),
+  () => import('../components/Projects/CreateProject'),
 );
 
 const routes = [

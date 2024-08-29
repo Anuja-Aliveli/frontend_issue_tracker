@@ -18,7 +18,7 @@ import {
 } from '../../utils/constants';
 import Dashboard from '../Dashboard/Dashboard';
 import BugReportIcon from '@mui/icons-material/BugReport';
-import CreateProject from '../CreateProject/CreateProject';
+import CreateProject from '../Projects/CreateProject';
 
 interface MainContextProviderProps {
   children: ReactNode;
