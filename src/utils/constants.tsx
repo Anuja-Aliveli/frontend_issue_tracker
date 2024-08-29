@@ -29,6 +29,7 @@ export const DASHBOARD = '/dashboard';
 export const PROJECTS = '/projects';
 export const CREATE_PROJECT = '/projects/create';
 export const EDIT_PROJECT = '/projects/edit/:projectId';
+export const VIEW_PROJECT = '/projects/view/:projectId';
 export const ISSUES = '/issues';
 export const CREATE_ISSUE = '/create-issue';
 export const BOOKMARKS = '/bookmarks';

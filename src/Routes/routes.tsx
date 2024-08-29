@@ -14,8 +14,10 @@ import {
   ISSUES,
   BOOKMARKS,
   EDIT_PROJECT,
+  VIEW_PROJECT,
 } from '../utils/constants';
 import Projects from '../components/Projects/Projects';
+import ProjectView from '../components/Projects/ProjectView';
 
 // Lazy load components
 const Register = lazy(() => import('../components/Authentication/Register'));
@@ -62,6 +64,7 @@ const routes = [
       { path: DASHBOARD, element: <Dashboard /> },
       { path: CREATE_PROJECT, element: <CreateProject /> },
       { path: EDIT_PROJECT, element: <CreateProject /> },
+      { path: VIEW_PROJECT, element: <ProjectView /> },
       { path: PROJECTS, element: <Projects /> },
       { path: CREATE_ISSUE, element: <p>{CREATE_ISSUE}</p> },
       { path: ISSUES, element: <p>{ISSUES}</p> },
