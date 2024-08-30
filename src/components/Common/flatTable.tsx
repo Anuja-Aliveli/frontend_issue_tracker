@@ -212,7 +212,10 @@ const TableComponent = (props: TableComponentProps) => {
         className="status"
         style={{
           color: getStatusColor(row[column.fieldname]),
-          backgroundColor: getStatusBgColor(row[column.fieldname]),
+          backgroundColor:
+            theme.palette.mode === DARK_THEME
+              ? DARK_BG_COLOR
+              : getStatusBgColor(row[column.fieldname]),
         }}>
         {row[column.fieldname]}
       </span>

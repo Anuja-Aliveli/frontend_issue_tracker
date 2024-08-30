@@ -53,9 +53,9 @@ export const formatDateTime = (dateString: string): string => {
 export const getStatusColor = (status: string): string => {
   switch (status) {
     case IN_PROGRESS:
-      return '#ff4500';
-    case PLANNING:
       return '#1aa3ea';
+    case PLANNING:
+      return '#ff4500';
     case COMPLETED:
       return '#ffce0f';
     case CLOSED:
@@ -69,9 +69,9 @@ export const getStatusColor = (status: string): string => {
 export const getStatusBgColor = (status: string): string => {
   switch (status) {
     case IN_PROGRESS:
-      return '#ffebc6';
-    case PLANNING:
       return '#bff1e9';
+    case PLANNING:
+      return '#ffebc6';
     case COMPLETED:
       return '#fffbb6';
     case CLOSED:
