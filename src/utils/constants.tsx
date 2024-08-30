@@ -93,3 +93,11 @@ export const EDIT_PROJECT_TEXT = 'Edit Project';
 // Confirm Dialog Constants
 export const PROJECT_CLOSE_CONTENT = 'Do you want to close the project?';
 export const PROJECT_CLOSE_TITLE = 'Close Project';
+
+// Project View Tab Contants
+export const OVERVIEW_TAB = 'Overview';
+export const CATEGORIES_TAB = 'Categories';
+export const ISSUES_TAB = 'Issues';
+export const OVERVIEW_TAB_VALUE = 'overview';
+export const CATEGORIES_TAB_VALUE = 'categories';
+export const ISSUES_TAB_VALUE = 'issues';

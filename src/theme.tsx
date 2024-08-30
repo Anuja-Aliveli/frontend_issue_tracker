@@ -716,6 +716,35 @@ export default function theme(mode: PaletteMode): ThemeOptions {
           }),
         },
       },
+      MuiTabs: {
+        styleOverrides: {
+          root: {
+            minHeight: '35px',
+          },
+          indicator: {
+            height: '1.5px',
+          },
+        },
+      },
+      MuiTab: {
+        styleOverrides: {
+          root: {
+            minHeight: '35px',
+            fontSize: '14px',
+            padding: '0px 12px',
+            textTransform: 'none',
+            display: 'flex',
+            flexDirection: 'row',
+            '&.Mui-selected': {
+              fontWeight: 'bold',
+            },
+          },
+          iconWrapper: {
+            paddingRight: '3px',
+            fontSize: 'medium',
+          },
+        },
+      },
     },
   };
 }
