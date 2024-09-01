@@ -47,7 +47,7 @@ const Main = () => {
             xs
             sx={{
               backgroundColor:
-                theme.palette.mode === 'dark' ? '#060818' : '#edf0f5',
+                theme.palette.mode === 'dark' ? '#17181a' : '#e8e9eb',
               padding: '1rem',
             }}>
             <Outlet />

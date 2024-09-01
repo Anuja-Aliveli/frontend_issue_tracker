@@ -3,7 +3,9 @@ import { ThemeOptions, alpha } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
 import { PaletteMode } from '@mui/material';
 import {
+  DARK_BG_COLOR,
   DARK_THEME,
+  LIGHT_BG_COLOR,
   LIGHT_THEME,
   SIDEBAR_SELECTED_DARK_BG_COLOR,
   SIDEBAR_SELECTED_DARK_BORDER,
@@ -64,7 +66,7 @@ export const gray = {
   600: '#4C5967',
   700: '#364049',
   800: '#131B20',
-  900: '#0E1726',
+  900: '#202123',
 };
 
 export const green = {
@@ -527,7 +529,10 @@ export default function theme(mode: PaletteMode): ThemeOptions {
             backgroundImage: 'none',
             backgroundColor: gray[100],
             ...(theme.palette.mode === 'dark' && {
-              backgroundColor: alpha(gray[900], 0.6),
+              backgroundColor:
+                theme.palette.mode === DARK_THEME
+                  ? SIDEBAR_SELECTED_DARK_BORDER
+                  : SIDEBAR_SELECTED_LIGHT_BORDER,
             }),
           }),
         },
@@ -676,6 +681,16 @@ export default function theme(mode: PaletteMode): ThemeOptions {
           },
         },
       },
+      MuiTableContainer: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            backgroundColor:
+              theme.palette.mode === DARK_THEME
+                ? SIDEBAR_SELECTED_DARK_BORDER
+                : SIDEBAR_SELECTED_LIGHT_BORDER,
+          }),
+        },
+      },
       MuiTableCell: {
         styleOverrides: {
           root: ({ theme }) => ({
@@ -693,7 +708,10 @@ export default function theme(mode: PaletteMode): ThemeOptions {
               theme.palette.mode === DARK_THEME
                 ? SIDEBAR_SELECTED_DARK_BORDER
                 : SIDEBAR_SELECTED_LIGHT_BORDER,
-
+            backgroundColor:
+              theme.palette.mode === DARK_THEME
+                ? SIDEBAR_SELECTED_DARK_BG_COLOR
+                : SIDEBAR_SELECTED_LIGHT_BG_COLOR,
             '&:hover': {
               backgroundColor:
                 theme.palette.mode === DARK_THEME
@@ -716,6 +734,16 @@ export default function theme(mode: PaletteMode): ThemeOptions {
           }),
         },
       },
+      MuiTablePagination: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            backgroundColor:
+              theme.palette.mode === DARK_THEME
+                ? DARK_BG_COLOR
+                : LIGHT_BG_COLOR,
+          }),
+        },
+      },
       MuiTabs: {
         styleOverrides: {
           root: {
@@ -728,17 +756,23 @@ export default function theme(mode: PaletteMode): ThemeOptions {
       },
       MuiTab: {
         styleOverrides: {
-          root: {
+          root: ({ theme }) => ({
             minHeight: '35px',
             fontSize: '14px',
             padding: '0px 12px',
             textTransform: 'none',
             display: 'flex',
             flexDirection: 'row',
+            '&:hover': {
+              backgroundColor:
+                theme.palette.mode === DARK_THEME
+                  ? DARK_BG_COLOR
+                  : LIGHT_BG_COLOR,
+            },
             '&.Mui-selected': {
               fontWeight: 'bold',
             },
-          },
+          }),
           iconWrapper: {
             paddingRight: '3px',
             fontSize: 'medium',

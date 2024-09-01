@@ -359,9 +359,6 @@ const TableComponent = (props: TableComponentProps) => {
   const renderTableBody = () => {
     return (
       <TableBody>
-        {/* <Typography component="h1" variant="h3" sx={{ marginBottom: 2 }}>
-          No Data
-        </Typography> */}
         {currentRowData
           .slice(page * limit, page * limit + limit)
           .map((row, index) => (

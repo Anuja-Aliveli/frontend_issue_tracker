@@ -15,10 +15,12 @@ import {
 import {
   CREATE_PROJECT,
   CREATE_PROJECT_TEXT,
+  DARK_BG_COLOR,
   DARK_THEME,
   EDIT,
   EDIT_PROJECT_TEXT,
   FIELD_REQUIRED,
+  LIGHT_BG_COLOR,
   LIGHT_THEME,
   PROJECTS,
   SIDEBAR_SELECTED_DARK_BORDER,
@@ -144,7 +146,7 @@ const CreateProject = () => {
           overflow: 'auto',
           padding: '1rem',
           backgroundColor:
-            theme.palette.mode === DARK_THEME ? '#0E1726' : '#ffffff',
+            theme.palette.mode === DARK_THEME ? DARK_BG_COLOR : LIGHT_BG_COLOR,
         }}>
         <Box component="form" onSubmit={handleProjectCreation}>
           <Typography component="h1" variant="h1">
