@@ -358,6 +358,9 @@ export default function theme(mode: PaletteMode): ThemeOptions {
                   boxShadow: `0 0 0 1px  ${alpha(brand[300], 0.5)}`,
                 },
               }),
+            ...(ownerState.color === 'success' && {
+              color: '#ffffff',
+            }),
             ...(ownerState.variant === 'outlined' && {
               backgroundColor: alpha(brand[300], 0.1),
               borderColor: brand[300],
@@ -777,6 +780,16 @@ export default function theme(mode: PaletteMode): ThemeOptions {
             paddingRight: '3px',
             fontSize: 'medium',
           },
+        },
+      },
+      MuiButtonGroup: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            '& .MuiButtonGroup-lastButton': {
+              width: '25px !important',
+              minWidth: '25px !important',
+            },
+          }),
         },
       },
     },

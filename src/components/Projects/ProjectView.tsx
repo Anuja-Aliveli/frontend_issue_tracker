@@ -37,9 +37,9 @@ const ProjectView = () => {
 
   return (
     <>
-      <Grid container sx={{ height: '100%', p: 2 }} spacing={2}>
-        <Grid item xs={12}>
-          <Box sx={{ width: '100%' }}>
+      <Box sx={{ p: 2, height: '100%' }}>
+        <Grid container spacing={{ xs: 1, md: 3 }} sx={{ height: '100%' }}>
+          <Grid item xs={12}>
             <Tabs
               value={tabValue}
               onChange={handleTabChange}
@@ -51,124 +51,133 @@ const ProjectView = () => {
                 value={OVERVIEW_TAB_VALUE}
                 label={OVERVIEW_TAB}
               />
+
               <Tab
                 icon={<LayersOutlinedIcon />}
                 value={CATEGORIES_TAB_VALUE}
                 label={CATEGORIES_TAB}
               />
+
               <Tab
                 icon={<AdjustOutlinedIcon />}
                 value={ISSUES_TAB_VALUE}
                 label={ISSUES_TAB}
               />
             </Tabs>
-          </Box>
-        </Grid>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            lg={3}
+            sx={{
+              height: { xs: 'fit-content', md: '-webkit-fill-available' },
+              mb: 3,
+            }}>
+            <Box
+              sx={{
+                backgroundColor:
+                  theme.palette.mode === DARK_THEME
+                    ? DARK_BG_COLOR
+                    : LIGHT_BG_COLOR,
+                borderRadius: '8px',
+                p: 2,
+                height: '100%',
+              }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6} md={12}>
+                  <Typography component="h1" variant="h2" textAlign="center">
+                    Project Details
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={6} md={12} sx={{ textAlign: 'center' }}>
+                  <Typography variant="body1">
+                    <strong>Status:</strong>
+                    <span
+                      className="status"
+                      style={{
+                        color: getStatusColor('in-progress'),
+                        backgroundColor:
+                          theme.palette.mode === DARK_THEME
+                            ? BADGE_DARK_BG_COLOR
+                            : getStatusBgColor('in-progress'),
+                      }}>
+                      In Progress
+                    </span>
+                  </Typography>
+                </Grid>
+                <Grid item xs={6} sm={6} md={12}>
+                  <Typography variant="body1" sx={{ textAlign: 'center' }}>
+                    <strong>Owner:</strong> {isXS && <br />}{' '}
+                    <span>John Doe</span>
+                  </Typography>
+                </Grid>
+                <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
+                  <Typography variant="body1">
+                    <strong>Project Name:</strong> {isXS && <br />}
+                    <span>Project ABC</span>
+                  </Typography>
+                </Grid>
+                <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
+                  <Typography variant="body1">
+                    <strong>Created At:</strong> {isXS && <br />}
+                    <span>2024-12-31</span>
+                  </Typography>
+                </Grid>
 
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={4}
-          lg={3}
-          sx={{
-            backgroundColor:
-              theme.palette.mode === DARK_THEME
-                ? DARK_BG_COLOR
-                : LIGHT_BG_COLOR,
-            borderRadius: '8px',
-            mt: 2,
-            mb: 3,
-            p: 2,
-            ml: { xs: 4, md: 0 },
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-            height: { xs: 'auto', md: '-webkit-fill-available' },
-          }}>
-          {/* Adjusted grid layout for details */}
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={12}>
-              <Typography component="h1" variant="h2" textAlign="center">
-                Project Details
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={6} md={12} sx={{ textAlign: 'center' }}>
-              <Typography variant="body1">
-                <strong>Status:</strong>
-                <span
-                  className="status"
-                  style={{
-                    color: getStatusColor('in-progress'),
-                    backgroundColor:
-                      theme.palette.mode === DARK_THEME
-                        ? BADGE_DARK_BG_COLOR
-                        : getStatusBgColor('in-progress'),
-                  }}>
-                  In Progress
-                </span>
-              </Typography>
-            </Grid>
-            <Grid item xs={6} sm={6} md={12}>
-              <Typography variant="body1" sx={{ textAlign: 'center' }}>
-                <strong>Owner:</strong> {isXS && <br />} <span>John Doe</span>
-              </Typography>
-            </Grid>
-            <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
-              <Typography variant="body1">
-                <strong>Project Name:</strong> {isXS && <br />}
-                <span>Project ABC</span>
-              </Typography>
-            </Grid>
-            <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
-              <Typography variant="body1">
-                <strong>Created At:</strong> {isXS && <br />}
-                <span>2024-12-31</span>
-              </Typography>
-            </Grid>
-
-            <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
-              <Typography variant="body1">
-                <strong>Project Type:</strong>
-                {isXS && <br />}
-                <span>Development</span>
-              </Typography>
-            </Grid>
-            <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
-              <Typography variant="body1">
-                <strong>Start Date:</strong>
-                {isXS && <br />}
-                <span>2024-01-01</span>
-              </Typography>
-            </Grid>
-            <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
-              <Typography variant="body1">
-                <strong>End Date:</strong> {isXS && <br />}
-                <span>2024-12-31</span>
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sx={{ textAlign: 'center' }}>
-              <Typography variant="body1">
-                <strong>Description:</strong>
-                {isXS && <br />}
-                <span>This is a project description.</span>
-              </Typography>
-            </Grid>
+                <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
+                  <Typography variant="body1">
+                    <strong>Project Type:</strong>
+                    {isXS && <br />}
+                    <span>Development</span>
+                  </Typography>
+                </Grid>
+                <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
+                  <Typography variant="body1">
+                    <strong>Start Date:</strong>
+                    {isXS && <br />}
+                    <span>2024-01-01</span>
+                  </Typography>
+                </Grid>
+                <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
+                  <Typography variant="body1">
+                    <strong>End Date:</strong> {isXS && <br />}
+                    <span>2024-12-31</span>
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sx={{ textAlign: 'center' }}>
+                  <Typography variant="body1">
+                    <strong>Description:</strong>
+                    {isXS && <br />}
+                    <span>This is a project description.</span>
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Box>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={8}
+            lg={9}
+            sx={{
+              height: '-webkit-fill-available',
+              maxHeight: { xs: '45vh', sm: '58vh', md: 'none' },
+              mb: 3,
+            }}>
+            <Box
+              sx={{
+                p: 2,
+                pr: 0,
+                height: '100%',
+              }}>
+              {tabValue === OVERVIEW_TAB_VALUE && <OverviewTab />}
+              {tabValue === CATEGORIES_TAB_VALUE && <p>Categories Content</p>}
+              {tabValue === ISSUES_TAB_VALUE && <p>Issues Content</p>}
+            </Box>
           </Grid>
         </Grid>
-
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={8}
-          lg={9}
-          sx={{ height: '-webkit-fill-available' }}>
-          {tabValue === OVERVIEW_TAB_VALUE && <OverviewTab />}
-          {tabValue === CATEGORIES_TAB_VALUE && <p>Categories Content</p>}
-          {tabValue === ISSUES_TAB_VALUE && <p>Issues Content</p>}
-        </Grid>
-      </Grid>
+      </Box>
     </>
   );
 };

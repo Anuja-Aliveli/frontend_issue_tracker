@@ -34,3 +34,15 @@ a {
   font-size: 10px;
   border-radius: 7px;
 }
+
+.count-card {
+  height: 77px;
+  min-width: 124px;
+}
+
+.text-overflow {
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

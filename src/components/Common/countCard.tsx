@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, useTheme } from '@mui/material';
+import { Box, Typography, Grid, useTheme, Tooltip } from '@mui/material';
 import { CountCardProps } from '../../Interfaces/sharedInterface';
 import {
   DARK_BG_COLOR,
@@ -16,10 +16,14 @@ const CountCard = (props: CountCardProps) => {
 
   return (
     <Box padding={2}>
-      <Grid container spacing={2}>
+      <Grid
+        container
+        spacing={2}
+        sx={{ display: 'flex', justifyContent: 'space-between' }}>
         {cardsData.map((card, index) => (
           <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
             <Box
+              className="count-card"
               sx={{
                 backgroundColor:
                   theme.palette.mode === DARK_THEME
@@ -35,9 +39,14 @@ const CountCard = (props: CountCardProps) => {
               <Typography component="h1" variant="h3">
                 {card.count}
               </Typography>
-              <Typography component="h2" variant="h4">
-                {card.label}
-              </Typography>
+              <Tooltip title={card.label}>
+                <Typography
+                  component="h2"
+                  variant="h4"
+                  className="text-overflow">
+                  {card.label}
+                </Typography>
+              </Tooltip>
             </Box>
           </Grid>
         ))}
