@@ -16,8 +16,41 @@ import {
   DARK_THEME,
   LIGHT_BG_COLOR,
 } from '../../utils/constants';
-import { CardData } from '../../Interfaces/sharedInterface';
+import {
+  ActivityTrailInterface,
+  CardData,
+} from '../../Interfaces/sharedInterface';
 import CountCard from '../Common/countCard';
+import ActivityTrail from '../Common/activityTrail';
+
+const steps: ActivityTrailInterface[] = [
+  {
+    label: 'Issue Created',
+    description: 'An issue was created for the project frontend redesign.',
+    created_at: '2024-09-12 10:15 AM',
+  },
+  {
+    label: 'Issue Assigned',
+    description:
+      'The issue was assigned to John Doe for further investigation.',
+    created_at: '2024-09-12 11:00 AM',
+  },
+  {
+    label: 'Solution Proposed',
+    description: 'A solution was proposed to fix the design issue.',
+    created_at: '2024-09-12 12:45 PM',
+  },
+  {
+    label: 'Issue Resolved',
+    description: 'The issue was resolved by John Doe.',
+    created_at: '2024-09-13 09:30 AM',
+  },
+  {
+    label: 'Issue Reoccured',
+    description: 'The issue was reoccured by John Doe.',
+    created_at: '2024-09-13 09:30 AM',
+  },
+];
 
 const OverviewTab: React.FC = () => {
   const theme = useTheme();
@@ -150,6 +183,7 @@ const OverviewTab: React.FC = () => {
         <Typography component="h1" variant="h3">
           Recent Activity
         </Typography>
+        <ActivityTrail steps={steps} />
       </Grid>
     </Grid>
   );
