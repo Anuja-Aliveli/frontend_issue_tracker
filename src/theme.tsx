@@ -12,6 +12,7 @@ import {
   SIDEBAR_SELECTED_LIGHT_BG_COLOR,
   SIDEBAR_SELECTED_LIGHT_BORDER,
 } from './utils/constants';
+import { BorderLeft } from '@mui/icons-material';
 
 declare module '@mui/material/styles/createPalette' {
   interface ColorRange {
@@ -788,6 +789,23 @@ export default function theme(mode: PaletteMode): ThemeOptions {
             '& .MuiButtonGroup-lastButton': {
               width: '25px !important',
               minWidth: '25px !important',
+            },
+          }),
+        },
+      },
+      MuiStepLabel: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            '& .MuiStepLabel-label': {
+              display: 'flex',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+            },
+            '& .MuiStepContent-root': {
+              borderLeft:
+                theme.palette.mode === DARK_THEME
+                  ? '2px solid #4C5967'
+                  : '2px solid #94A6B8',
             },
           }),
         },

@@ -65,3 +65,14 @@ export interface ConfirmDialogProps {
   modalTitle?: string;
   modalContent: string;
 }
+
+// Activity Trail Interface
+export interface ActivityTrailInterface {
+  label: string;
+  created_at: string;
+  description: string;
+}
+
+export interface ActivityTrailInterfaceProps {
+  steps: ActivityTrailInterface[];
+}
