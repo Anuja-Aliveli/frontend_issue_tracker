@@ -27,6 +27,7 @@ import {
   CLOSED,
   EDIT,
   PROJECT_CLOSE_CONTENT,
+  VIEW,
 } from '../../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDialog from '../Common/confirmDialog';
@@ -75,13 +76,15 @@ const Projects = () => {
     switch (action.value) {
       case EDIT:
         fetchProjectDetails(dispatch, row.project_id);
+        navigate(row.route_link.edit_project);
+        break;
+      case VIEW:
+        fetchProjectDetails(dispatch, row.project_id);
         navigate(row.route_link.project_id);
         break;
-
       case CLOSE:
         setIsDialogOpen(true);
         break;
-
       default:
         return null;
     }

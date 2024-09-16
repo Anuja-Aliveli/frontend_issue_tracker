@@ -12,6 +12,7 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {
+  CREATE_PROJECT,
   DARK_BG_COLOR,
   DARK_THEME,
   LIGHT_BG_COLOR,
@@ -22,6 +23,7 @@ import {
 } from '../../Interfaces/sharedInterface';
 import CountCard from '../Common/countCard';
 import ActivityTrail from '../Common/activityTrail';
+import { useNavigate } from 'react-router-dom';
 
 const steps: ActivityTrailInterface[] = [
   {
@@ -58,6 +60,7 @@ const OverviewTab: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const anchorRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const options = ['Edit', 'Close', 'Create Category'];
 
@@ -115,6 +118,10 @@ const OverviewTab: React.FC = () => {
     setOpen(false);
   };
 
+  const onCreateProjectBtn = () => {
+    navigate(CREATE_PROJECT);
+  };
+
   return (
     <Grid container spacing={2}>
       <Grid
@@ -130,7 +137,11 @@ const OverviewTab: React.FC = () => {
           alignItems="center"
           spacing={2}>
           <Grid item>
-            <Button variant="contained" color="success" startIcon={<AddIcon />}>
+            <Button
+              variant="contained"
+              color="success"
+              startIcon={<AddIcon />}
+              onClick={onCreateProjectBtn}>
               Create
             </Button>
           </Grid>
