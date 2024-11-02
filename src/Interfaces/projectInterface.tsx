@@ -19,8 +19,9 @@ export interface ProjectDetails {
   project_description: string;
   project_status: string;
   project_type: string;
-  start_date: Date | null;
-  end_date: Date | null;
+  start_date: string | null;
+  end_date: string | null;
+  created_at?: string | null;
 }
 
 export interface CreateProjectErrors {
@@ -41,6 +42,7 @@ export const initialProjectDetails: ProjectDetails = {
   project_type: '',
   start_date: null,
   end_date: null,
+  created_at: null,
 };
 
 export interface CardsData {

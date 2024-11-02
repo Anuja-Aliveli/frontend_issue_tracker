@@ -5,11 +5,18 @@ import {
   DARK_THEME,
   LIGHT_BG_COLOR,
 } from '../../utils/constants';
-import { getStatusBgColor, getStatusColor } from '../../utils/sharedFunctions';
+import {
+  formatDateTime,
+  getStatusBgColor,
+  getStatusColor,
+} from '../../utils/sharedFunctions';
+import { useSelector } from 'react-redux';
+import { selectProjectDetails } from '../../reduxStore/ProjectSlice/projectSelectors';
 
 const ProjectDetails = () => {
   const theme = useTheme();
   const isXS = useMediaQuery(theme.breakpoints.only('xs'));
+  const projectDetails = useSelector(selectProjectDetails);
 
   return (
     <Grid
@@ -42,57 +49,62 @@ const ProjectDetails = () => {
               <span
                 className="status"
                 style={{
-                  color: getStatusColor('in-progress'),
+                  color: getStatusColor(projectDetails.project_status),
                   backgroundColor:
                     theme.palette.mode === DARK_THEME
                       ? BADGE_DARK_BG_COLOR
-                      : getStatusBgColor('in-progress'),
+                      : getStatusBgColor(projectDetails.project_status),
                 }}>
-                In Progress
+                {projectDetails.project_status}
               </span>
             </Typography>
           </Grid>
 
           <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
             <Typography variant="body1">
-              <strong>Owner:</strong> {isXS && <br />} John Doe
+              <strong>Owner:</strong> {isXS && <br />} {projectDetails.owner}
             </Typography>
           </Grid>
 
           <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
             <Typography variant="body1">
-              <strong>Project Name:</strong> {isXS && <br />} Project ABC
+              <strong>Project Name:</strong> {isXS && <br />}{' '}
+              {projectDetails.project_name}
             </Typography>
           </Grid>
 
           <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
             <Typography variant="body1">
-              <strong>Created At:</strong> {isXS && <br />} 2024-12-31
+              <strong>Created At:</strong> {isXS && <br />}
+              {formatDateTime(projectDetails.created_at || '')}
             </Typography>
           </Grid>
 
           <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
             <Typography variant="body1">
-              <strong>Project Type:</strong> {isXS && <br />} Development
+              <strong>Project Type:</strong> {isXS && <br />}{' '}
+              {projectDetails.project_type}
             </Typography>
           </Grid>
 
           <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
             <Typography variant="body1">
-              <strong>Start Date:</strong> {isXS && <br />} 2024-01-01
+              <strong>Created At:</strong> {isXS && <br />}
+              {formatDateTime(projectDetails.created_at || '')}
             </Typography>
           </Grid>
 
           <Grid item xs={6} sm={6} md={12} sx={{ textAlign: 'center' }}>
             <Typography variant="body1">
-              <strong>End Date:</strong> {isXS && <br />} 2024-12-31
+              <strong>Created At:</strong> {isXS && <br />}
+              {formatDateTime(projectDetails.created_at || '')}
             </Typography>
           </Grid>
 
           <Grid item xs={12} sx={{ textAlign: 'center' }}>
             <Typography variant="body1">
-              <strong>Description:</strong> {isXS && <br />} This is a project
-              description.
+              <strong>Description:</strong> {isXS && <br />}{' '}
+              {projectDetails.project_description}
             </Typography>
           </Grid>
         </Grid>

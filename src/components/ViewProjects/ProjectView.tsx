@@ -1,5 +1,5 @@
 import { Box, Grid, Tab, Tabs } from '@mui/material';
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
 import LayersOutlinedIcon from '@mui/icons-material/LayersOutlined';
 import AdjustOutlinedIcon from '@mui/icons-material/AdjustOutlined';
@@ -13,9 +13,29 @@ import {
 } from '../../utils/constants';
 import OverviewTab from './overview';
 import ProjectDetails from './ProjectDetails';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProjectDetails } from '../../reduxStore/ProjectSlice/projectEffects';
+import { useParams } from 'react-router-dom';
+import { selectIsLoading } from '../../reduxStore/ProjectSlice/projectSelectors';
 
 const ProjectView = () => {
+  const { projectId } = useParams();
+  const dispatch = useDispatch();
   const [tabValue, setTabValue] = useState(OVERVIEW_TAB_VALUE);
+  const isLoading = useSelector(selectIsLoading);
+  useEffect(() => {
+    const getProjectDetails = async () => {
+      if (projectId) {
+        await fetchProjectDetails(dispatch, projectId);
+      }
+    };
+
+    getProjectDetails();
+  }, [dispatch, projectId]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   const handleTabChange = (event: SyntheticEvent, newTabValue: string) => {
     setTabValue(newTabValue);

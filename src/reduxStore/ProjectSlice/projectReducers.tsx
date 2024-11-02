@@ -23,6 +23,7 @@ const initialState: ProjectSliceInterface = {
     project_type: '',
     start_date: null,
     end_date: null,
+    created_at: null,
   },
   cardsData: [],
   projectsList: {
