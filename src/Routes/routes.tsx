@@ -17,7 +17,7 @@ import {
   VIEW_PROJECT,
 } from '../utils/constants';
 import Projects from '../components/Projects/Projects';
-import ProjectView from '../components/Projects/ProjectView';
+import ProjectView from '../components/ViewProjects/ProjectView';
 
 // Lazy load components
 const Register = lazy(() => import('../components/Authentication/Register'));
